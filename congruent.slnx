@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="congruent.Tests/congruent.Tests.csproj" />
+  <Project Path="congruent/congruent.csproj" />
+</Solution>
