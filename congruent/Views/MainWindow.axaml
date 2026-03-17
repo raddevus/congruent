@@ -14,7 +14,47 @@
              to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
         <vm:MainWindowViewModel/>
     </Design.DataContext>
+    <Grid>
+    <!-- Define rows for the grid -->
+    <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/> <!-- For the panel -->
+        <RowDefinition Height="*"/>  <!-- For the existing content -->
+    </Grid.RowDefinitions>
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <!-- New panel for the TextBox and Label -->
+    <Grid ColumnDefinitions="Auto,Auto, 8*" Margin="10">
+
+        <Label Content="Go:" Grid.Column="0" VerticalAlignment="Center"/>
+        <Button Width="30" Height="30" Content="↑" FontSize="17"
+         HorizontalContentAlignment="Center"
+         Padding="-0.5"
+         VerticalContentAlignment = "Center"
+         FontFamily="{StaticResource FiraCodeNerdFont}" 
+         Grid.Column="1"/>
+           <TextBox Name="NavPathTB" KeyDown="OnTextBoxKeyDown" Grid.Column="2"/>
+           </Grid>
+
+    <!-- Original Grid with SplitterGrid -->
+    <Grid Grid.Row="1" ColumnDefinitions="Auto,4,*">
+        <Border x:Name="NavPane"
+                Grid.Column="0"
+                MinWidth="100"
+                Background="#eeeeee">
+            <ListBox x:Name="QuickLinksLB"
+                     SelectionMode="Single"
+                     SelectionChanged="QuickLinkChanged"/>
+        </Border>
+
+        <GridSplitter Grid.Column="1"
+                      Width="4"
+                      Background="Gray"
+                      ResizeDirection="Columns"
+                      ResizeBehavior="PreviousAndNext"
+                      Cursor="SizeWestEast"/>
+
+        <Grid Grid.Column="2">
+        </Grid>
+    </Grid>
+</Grid>
 
 </Window>
