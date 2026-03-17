@@ -53,6 +53,8 @@
                       Cursor="SizeWestEast"/>
 
         <Grid Grid.Column="2">
+        <TextBlock>test this</TextBlock>
+            <NativeWebView x:Name="WebView" Source="https://www.google.com"/>
         </Grid>
     </Grid>
 </Grid>
