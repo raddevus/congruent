@@ -43,8 +43,34 @@ public partial class MainWindow : Window
    {
        if (e.Key == Key.Enter)
        {
-         MainWebView.Source = new System.Uri(NavPathTB.Text);
+          var targetUrl = ValidateUrl(NavPathTB.Text);
+          if (targetUrl == string.Empty){
+             // if it's an invalid URL throw it away & return
+             NavPathTB.Text = string.Empty;
+             NavPathTB.Focus();
+             return;
+          }
+          NavPathTB.Text = targetUrl;
+          MainWebView.Source = new System.Uri(targetUrl);
        }
+   }
+
+   public string ValidateUrl(string url)
+   {
+       // Check if the URL already has a scheme (http:// or https://)
+       if (!url.StartsWith("http://", StringComparison.OrdinalIgnoreCase) && 
+           !url.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
+       {
+           url = "https://".Trim() + url; // Prepend https://
+       }
+
+       // Validate the URL is well-formed as an absolute URI
+       if (Uri.TryCreate(url, UriKind.Absolute, out Uri uriResult) && 
+           (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps))
+       {
+           return url; // Valid URL
+       }
+       return string.Empty;
    }
 
 }
