@@ -17,7 +17,10 @@ public partial class MainWindow : Window
     protected override void OnOpened(EventArgs e){
        base.OnOpened(e);
        MainWebView.Focus();
-       MainWebView.Source = new System.Uri("https://duckduckgo.com");     
+       MainWebView.Source = new System.Uri("https://duckduckgo.com");
+       // following two lines force the initial render of webview
+       MainWebView.InvalidateMeasure();
+       MainWebView.InvalidateArrange();
     }
 
         private async void QuickLinkChanged(object? sender, RoutedEventArgs e){
