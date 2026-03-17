@@ -13,12 +13,29 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
     }
+    
+    protected override void OnOpened(EventArgs e){
+       base.OnOpened(e);
+       MainWebView.Source = new System.Uri("https://duckduckgo.com");     
+    }
 
         private async void QuickLinkChanged(object? sender, RoutedEventArgs e){
         }
-
+   private void NavigationCompleted(object? sender, WebViewNavigationCompletedEventArgs args)
+   {
+       if (args.IsSuccess)
+       {
+           // Navigation completed successfully
+           Console.WriteLine("I'm done.");
+       }
+   }
+   
    private void OnTextBoxKeyDown(object sender, KeyEventArgs e)
    {
+       if (e.Key == Key.Enter)
+       {
+         MainWebView.Source = new System.Uri(NavPathTB.Text);
+       }
    }
 
 }
