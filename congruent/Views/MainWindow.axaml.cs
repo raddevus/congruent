@@ -31,6 +31,11 @@ public partial class MainWindow : Window
        {
            // Navigation completed successfully
            Console.WriteLine("I'm done.");
+          if (!QuickLinksLB.Items.Contains(NavPathTB.Text)){
+                QuickLinksLB.Items.Add(NavPathTB.Text);
+          }
+                
+
        }
    }
    
