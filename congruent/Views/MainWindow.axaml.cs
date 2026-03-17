@@ -16,6 +16,7 @@ public partial class MainWindow : Window
     
     protected override void OnOpened(EventArgs e){
        base.OnOpened(e);
+       MainWebView.Focus();
        MainWebView.Source = new System.Uri("https://duckduckgo.com");     
     }
 

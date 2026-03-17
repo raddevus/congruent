@@ -53,10 +53,9 @@
                       Cursor="SizeWestEast"/>
 
         <Grid Grid.Column="2">
-        <TextBlock>test this</TextBlock>
             <NativeWebView Name="MainWebView" 
             NavigationCompleted="NavigationCompleted"
-            Source="https://www.google.com"/>
+            Source="https://duckduckgo.com"/>
         </Grid>
     </Grid>
 </Grid>
