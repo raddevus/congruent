@@ -143,13 +143,6 @@ public partial class MainWindow : Window
    }
 
    private void OnCloseTab(object? sender, RoutedEventArgs e){
-     var mix = sender as MenuItem; 
-      Console.WriteLine($"got the Close event. {mix.GetType()} : {mix?.Tag?.GetType()}");
-      Console.WriteLine($"is it a tab item? : {mix.Tag is TabItem}");
-      if (sender is MenuItem mi && mi.Tag is TabItem tab)
-      {
-        BrowserTabs.Items.Remove(tab);
-      }
       Console.WriteLine($"There are {BrowserTabs.Items.Count} tabs open.");
       foreach (var item in BrowserTabs.Items)
       {
