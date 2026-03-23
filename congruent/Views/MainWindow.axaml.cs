@@ -65,6 +65,11 @@ public partial class MainWindow : Window
 
    public string ValidateUrl(string url)
    {
+
+       if (url.StartsWith("file:///", StringComparison.OrdinalIgnoreCase)){
+          Console.WriteLine($"return url : {url}");
+           return url; 
+      }
       if (string.IsNullOrEmpty(url)){return string.Empty;}
        // Check if the URL already has a scheme (http:// or https://)
        if (!url.StartsWith("http://", StringComparison.OrdinalIgnoreCase) && 
