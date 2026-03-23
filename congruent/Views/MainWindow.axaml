@@ -22,7 +22,7 @@
     </Grid.RowDefinitions>
 
     <!-- New panel for the TextBox and Label -->
-    <Grid ColumnDefinitions="Auto,Auto, 8*" Margin="10">
+    <Grid Name="MainGrid" ColumnDefinitions="Auto,Auto, 8*" Margin="10">
 
         <Label Content="Go:" Grid.Column="0" VerticalAlignment="Center"/>
         <Button Width="30" Height="30" Content="↑" FontSize="17"
@@ -45,7 +45,7 @@
                      SelectionChanged="QuickLinkChanged"/>
         </Border>
 
-        <GridSplitter Grid.Column="1"
+        <GridSplitter Grid.Column="1" Name="MainSplitter"
                       Width="4"
                       Background="Gray"
                       ResizeDirection="Columns"
@@ -70,7 +70,12 @@
 
             <!-- Example initial tab -->
             <TabItem Header="DuckDuckGo">
-                <NativeWebView Name="MainWebView"
+                <NativeWebView Name="MainWebView" 
+                Loaded="OnWebViewLoaded"
+                Width="5" Height="5"
+                MinWidth="500" MinHeight="500"
+                HorizontalAlignment="Stretch"
+               VerticalAlignment="Stretch"
                   NavigationCompleted="NavigationCompleted"
                      Source="https://duckduckgo.com"/>
             </TabItem>

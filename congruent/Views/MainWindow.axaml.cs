@@ -4,7 +4,6 @@ using Avalonia;
 using Avalonia.Input;
 using Avalonia.Controls;
 using Avalonia.Interactivity;  // Adds items necessary for event handlers
-using Avalonia.LogicalTree;
 
 
 namespace congruent.Views;
@@ -26,6 +25,7 @@ public partial class MainWindow : Window
        // following two lines force the initial render of webview
        MainWebView.InvalidateMeasure();
        MainWebView.InvalidateArrange();
+       MainWebView.InvalidateVisual();
        NavPathTB.Focus();
     }
 
@@ -65,6 +65,7 @@ public partial class MainWindow : Window
 
    public string ValidateUrl(string url)
    {
+      if (string.IsNullOrEmpty(url)){return string.Empty;}
        // Check if the URL already has a scheme (http:// or https://)
        if (!url.StartsWith("http://", StringComparison.OrdinalIgnoreCase) && 
            !url.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
@@ -110,10 +111,35 @@ public partial class MainWindow : Window
            if (tab.Content is NativeWebView web)
            {
                Console.WriteLine($"WebView URL: {web.Source}");
+               var w = web?.Width;
+               var h = web?.Height;
+               Console.WriteLine($"Height {h} Width {w}");
+               web.InvalidateMeasure();
+               web.InvalidateArrange();
+               web.InvalidateVisual();
                NavPathTB.Text = web.Source.ToString();
                NavPathTB.Focus();
+
            }
        }
+   }
+
+   private void OnWebViewLoaded(object? sender, RoutedEventArgs e)
+   {
+//       if (sender is NativeWebView web &&
+ //          web.Parent is Control parent)
+  //     {
+         Console.WriteLine("##### OnWEbViewLoaded #############");
+           var web = (sender as NativeWebView);
+           
+               MainWebView.InvalidateMeasure();
+               MainWebView.InvalidateArrange();
+               MainWebView.InvalidateVisual();
+               BrowserTabs.SelectedItem  = BrowserTabs.Items[0];               
+               web.InvalidateMeasure();
+               web.InvalidateArrange();
+               web.InvalidateVisual();
+   //    }
    }
 
    private void OnCloseTab(object? sender, RoutedEventArgs e){
