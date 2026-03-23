@@ -1,8 +1,10 @@
 using System;
+using System.Linq;
 using Avalonia;
 using Avalonia.Input;
 using Avalonia.Controls;
 using Avalonia.Interactivity;  // Adds items necessary for event handlers
+using Avalonia.LogicalTree;
 
 
 namespace congruent.Views;
@@ -23,7 +25,8 @@ public partial class MainWindow : Window
        MainWebView.InvalidateArrange();
     }
 
-        private async void QuickLinkChanged(object? sender, RoutedEventArgs e){
+
+   private async void QuickLinkChanged(object? sender, RoutedEventArgs e){
         }
    private void NavigationCompleted(object? sender, WebViewNavigationCompletedEventArgs args)
    {
@@ -105,23 +108,23 @@ public partial class MainWindow : Window
        }
    }
 
-   private void OnCloseTab(object? sender, RoutedEventArgs e)
-   {
-       if (sender is MenuItem mi &&
-           mi.CommandParameter is TabItem tab)
-       {
-           BrowserTabs.Items.Remove(tab);
-       }
+   private void OnCloseTab(object? sender, RoutedEventArgs e){
+     var mix = sender as MenuItem; 
+      Console.WriteLine($"got the Close event. {mix.GetType()} : {mix?.Tag?.GetType()}");
+      Console.WriteLine($"is it a tab item? : {mix.Tag is TabItem}");
+      if (sender is MenuItem mi && mi.Tag is TabItem tab)
+      {
+        BrowserTabs.Items.Remove(tab);
+      }
    }
 
+   private void OnDuplicateTab(object? sender, RoutedEventArgs e)
+   {
+   }
 
-private void OnDuplicateTab(object? sender, RoutedEventArgs e)
-{
-}
-
-private void OnReloadTab(object? sender, RoutedEventArgs e)
-{
-}
+   private void OnReloadTab(object? sender, RoutedEventArgs e)
+   {
+   }
 
 
 }
