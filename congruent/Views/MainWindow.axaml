@@ -54,7 +54,8 @@
          <TabControl Grid.Column="2"
                     Name="BrowserTabs"
                     HorizontalContentAlignment="Stretch"
-                    VerticalContentAlignment="Stretch">
+                    VerticalContentAlignment="Stretch"
+                    SelectionChanged="OnTabSelectionChanged">
 
             <!-- Example initial tab -->
             <TabItem Header="DuckDuckGo">

@@ -90,6 +90,20 @@ public partial class MainWindow : Window
        BrowserTabs.Items.Add(tab);
        BrowserTabs.SelectedItem = tab;
    }
+   
+   private void OnTabSelectionChanged(object? sender, SelectionChangedEventArgs e)
+   {
+       if (BrowserTabs?.SelectedItem is TabItem tab)
+       {
+           Console.WriteLine($"Selected tab: {tab.Header}");
+
+           if (tab.Content is NativeWebView web)
+           {
+               Console.WriteLine($"WebView URL: {web.Source}");
+               NavPathTB.Text = web.Source.ToString();
+           }
+       }
+   }
 
 
 }
