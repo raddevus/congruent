@@ -11,6 +11,9 @@ namespace congruent.Views;
 
 public partial class MainWindow : Window
 {
+
+   private TabItem currentTab = null;
+
     public MainWindow()
     {
         InitializeComponent();
@@ -23,6 +26,7 @@ public partial class MainWindow : Window
        // following two lines force the initial render of webview
        MainWebView.InvalidateMeasure();
        MainWebView.InvalidateArrange();
+       NavPathTB.Focus();
     }
 
 
@@ -93,17 +97,21 @@ public partial class MainWindow : Window
        BrowserTabs.Items.Add(tab);
        BrowserTabs.SelectedItem = tab;
    }
-   
+  
    private void OnTabSelectionChanged(object? sender, SelectionChangedEventArgs e)
    {
        if (BrowserTabs?.SelectedItem is TabItem tab)
        {
+         // Any time tab is clicked we save it as the currentTab
+         // so we can track it in case the user wants to remove it
+          currentTab = tab;
            Console.WriteLine($"Selected tab: {tab.Header}");
 
            if (tab.Content is NativeWebView web)
            {
                Console.WriteLine($"WebView URL: {web.Source}");
                NavPathTB.Text = web.Source.ToString();
+               NavPathTB.Focus();
            }
        }
    }
@@ -116,6 +124,15 @@ public partial class MainWindow : Window
       {
         BrowserTabs.Items.Remove(tab);
       }
+      Console.WriteLine($"There are {BrowserTabs.Items.Count} tabs open.");
+      foreach (var item in BrowserTabs.Items)
+      {
+          if (item is TabItem tabx){
+              Console.WriteLine($"Tab: {tabx.Header}");
+          }
+      }
+      
+      BrowserTabs.Items.Remove(currentTab);
    }
 
    private void OnDuplicateTab(object? sender, RoutedEventArgs e)
