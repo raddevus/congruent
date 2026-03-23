@@ -1,3 +1,8 @@
+### I'm Glad You Asked: Congruent Does Have Tabbed Browsing
+2026-03-23 - Congruent got tabbed browsing today. Each time you open a new URL you'll get a new tab.<br>
+Yes, soon the tabs will get better styles &amp; better tab text.<br>
+<img width="1411" height="784" alt="image" src="https://github.com/user-attachments/assets/6c8f8e9d-f86e-4cbb-82c6-814ac1983336" />
+
 #### As I Began Building
 ~~Discovered that the webview required a commercial license in Avalonia 11, but is soon coming.~~
 
