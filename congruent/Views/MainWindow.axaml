@@ -51,12 +51,19 @@
                       ResizeDirection="Columns"
                       ResizeBehavior="PreviousAndNext"
                       Cursor="SizeWestEast"/>
+         <TabControl Grid.Column="2"
+                    Name="BrowserTabs"
+                    HorizontalContentAlignment="Stretch"
+                    VerticalContentAlignment="Stretch">
 
-        <Grid Grid.Column="2">
-            <NativeWebView Name="MainWebView" 
-            NavigationCompleted="NavigationCompleted"
-            Source="https://duckduckgo.com"/>
-        </Grid>
+            <!-- Example initial tab -->
+            <TabItem Header="DuckDuckGo">
+                <NativeWebView Name="MainWebView"
+                  NavigationCompleted="NavigationCompleted"
+                     Source="https://duckduckgo.com"/>
+            </TabItem>
+
+        </TabControl>
     </Grid>
 </Grid>
 

@@ -51,7 +51,8 @@ public partial class MainWindow : Window
              return;
           }
           NavPathTB.Text = targetUrl;
-          MainWebView.Source = new System.Uri(targetUrl);
+//          MainWebView.Source = new System.Uri(targetUrl);
+         AddNewTab(targetUrl.ToString());
        }
    }
 
@@ -72,5 +73,23 @@ public partial class MainWindow : Window
        }
        return string.Empty;
    }
+
+   public void AddNewTab(string url)
+   {
+       var webView = new NativeWebView
+       {
+           Source = new Uri(url)
+       };
+
+       var tab = new TabItem
+       {
+           Header = url,
+           Content = webView
+       };
+
+       BrowserTabs.Items.Add(tab);
+       BrowserTabs.SelectedItem = tab;
+   }
+
 
 }
