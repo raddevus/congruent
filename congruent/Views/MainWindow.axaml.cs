@@ -22,10 +22,10 @@ public partial class MainWindow : Window
        base.OnOpened(e);
        MainWebView.Focus();
        MainWebView.Source = new System.Uri("https://duckduckgo.com");
-       // following two lines force the initial render of webview
-       MainWebView.InvalidateMeasure();
-       MainWebView.InvalidateArrange();
-       MainWebView.InvalidateVisual();
+       // following three lines force the initial render of webview
+       wnd.Width += 2;
+       System.Threading.Thread.Sleep(100);
+       wnd.Width -= 2;
        NavPathTB.Focus();
     }
 
@@ -111,14 +111,15 @@ public partial class MainWindow : Window
            if (tab.Content is NativeWebView web)
            {
                Console.WriteLine($"WebView URL: {web.Source}");
-               var w = web?.Width;
-               var h = web?.Height;
+               var w = wnd?.Width;
+               var h = wnd?.Height;
                Console.WriteLine($"Height {h} Width {w}");
-               web.InvalidateMeasure();
-               web.InvalidateArrange();
-               web.InvalidateVisual();
                NavPathTB.Text = web.Source.ToString();
                NavPathTB.Focus();
+               // Following three lines force webview to render
+               wnd.Width += 2;
+               System.Threading.Thread.Sleep(10);
+               wnd.Width -= 2;
 
            }
        }

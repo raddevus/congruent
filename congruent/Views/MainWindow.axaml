@@ -7,6 +7,7 @@
         x:Class="congruent.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
+        Name="wnd"
         Title="congruent">
 
     <Design.DataContext>
@@ -72,7 +73,6 @@
             <TabItem Header="DuckDuckGo">
                 <NativeWebView Name="MainWebView" 
                 Loaded="OnWebViewLoaded"
-                Width="5" Height="5"
                 MinWidth="500" MinHeight="500"
                 HorizontalAlignment="Stretch"
                VerticalAlignment="Stretch"
