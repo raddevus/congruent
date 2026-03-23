@@ -56,6 +56,17 @@
                     HorizontalContentAlignment="Stretch"
                     VerticalContentAlignment="Stretch"
                     SelectionChanged="OnTabSelectionChanged">
+            <TabControl.Styles>
+        <Style Selector="TabItem">
+            <Setter Property="ContextMenu">
+                <ContextMenu>
+                    <MenuItem Header="Reload" Click="OnReloadTab"/>
+                    <MenuItem Header="Duplicate" Click="OnDuplicateTab"/>
+                    <MenuItem Header="Close" Click="OnCloseTab"/>
+                </ContextMenu>
+            </Setter>
+        </Style>
+    </TabControl.Styles>
 
             <!-- Example initial tab -->
             <TabItem Header="DuckDuckGo">

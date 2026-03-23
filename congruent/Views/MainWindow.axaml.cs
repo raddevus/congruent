@@ -105,5 +105,23 @@ public partial class MainWindow : Window
        }
    }
 
+   private void OnCloseTab(object? sender, RoutedEventArgs e)
+   {
+       if (sender is MenuItem mi &&
+           mi.CommandParameter is TabItem tab)
+       {
+           BrowserTabs.Items.Remove(tab);
+       }
+   }
+
+
+private void OnDuplicateTab(object? sender, RoutedEventArgs e)
+{
+}
+
+private void OnReloadTab(object? sender, RoutedEventArgs e)
+{
+}
+
 
 }
