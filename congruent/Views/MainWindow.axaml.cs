@@ -121,6 +121,7 @@ public partial class MainWindow : Window
                Console.WriteLine($"Height {h} Width {w}");
                NavPathTB.Text = web.Source.ToString();
                NavPathTB.Focus();
+               NavPathTB.CaretIndex = web.Source.ToString().Length;
                // Following three lines force webview to render
                wnd.Width += 2;
                System.Threading.Thread.Sleep(10);
