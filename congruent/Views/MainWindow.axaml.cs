@@ -34,6 +34,7 @@ public partial class MainWindow : Window
         }
    private void NavigationCompleted(object? sender, WebViewNavigationCompletedEventArgs args)
    {
+      Console.WriteLine(" **** Nav Completed ****");
        if (args.IsSuccess)
        {
            // Navigation completed successfully
