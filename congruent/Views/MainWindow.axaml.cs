@@ -23,6 +23,7 @@ public partial class MainWindow : Window
        base.OnOpened(e);
        MainWebView.Focus();
        MainWebView.Source = new System.Uri("https://duckduckgo.com");
+       currentWebView = MainWebView;
        // following three lines force the initial render of webview
        wnd.Width += 2;
        System.Threading.Thread.Sleep(100);
@@ -130,6 +131,7 @@ public partial class MainWindow : Window
                wnd.Width += 2;
                System.Threading.Thread.Sleep(10);
                wnd.Width -= 2;
+               currentWebView = web;
 
            }
        }
@@ -137,7 +139,7 @@ public partial class MainWindow : Window
 
 
    private void BackButtonClick(object? sender, RoutedEventArgs e){
-      var result = currentWebView.GoBack();
+      var result = currentWebView?.GoBack();
       Console.WriteLine($"result: {result}");
    }
 
