@@ -138,6 +138,11 @@ public partial class MainWindow : Window
    }
 
 
+   private void ForwardButtonClick(object? sender, RoutedEventArgs e){
+      var result = currentWebView?.GoForward();
+      Console.WriteLine($"forward result: {result}");
+   }
+
    private void BackButtonClick(object? sender, RoutedEventArgs e){
       var result = currentWebView?.GoBack();
       Console.WriteLine($"result: {result}");
