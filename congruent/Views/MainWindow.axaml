@@ -25,7 +25,13 @@
     <!-- New panel for the TextBox and Label -->
     <Grid Name="MainGrid" ColumnDefinitions="Auto,Auto, 8*" Margin="10">
 
-        <Label Content="Go:" Grid.Column="0" VerticalAlignment="Center"/>
+        <Button Width="35" Height="35" Content="⇽" FontSize="20"
+         Click="BackButtonClick"
+         HorizontalContentAlignment="Center"
+         Padding="-0.5"
+         VerticalContentAlignment = "Center"
+         FontFamily="{StaticResource FiraCodeNerdFont}" 
+         Grid.Column="0"/>
         <Button Width="35" Height="35" Content="⇽" FontSize="20"
          Click="BackButtonClick"
          HorizontalContentAlignment="Center"
