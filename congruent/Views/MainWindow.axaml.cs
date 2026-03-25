@@ -12,6 +12,7 @@ public partial class MainWindow : Window
 {
 
    private TabItem currentTab = null;
+   private NativeWebView currentWebView = null;
 
     public MainWindow()
     {
@@ -95,6 +96,8 @@ public partial class MainWindow : Window
            Source = new Uri(url)
        };
 
+       currentWebView = webView;
+
        var tab = new TabItem
        {
            Header = url,
@@ -130,6 +133,12 @@ public partial class MainWindow : Window
 
            }
        }
+   }
+
+
+   private void BackButtonClick(object? sender, RoutedEventArgs e){
+      var result = currentWebView.GoBack();
+      Console.WriteLine($"result: {result}");
    }
 
    private void OnWebViewLoaded(object? sender, RoutedEventArgs e)
