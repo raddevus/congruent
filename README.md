@@ -12,8 +12,12 @@ There is a preview version of Avalonia.  Altering the `.csproj` file allows us t
 `PackageReference Include="Avalonia" Version="12.0.0-preview2"`
 
 #### Info From Brave AI
-The AVLIC0001 error occurs because the Avalonia.Controls.WebView package was previously part of Avalonia Accelerate, a commercial offering. <br>
-However, the team has announced it will be fully open-sourced in the upcoming Avalonia 12 release. 
+~~The AVLIC0001 error occurs because the Avalonia.Controls.WebView package was previously part of Avalonia Accelerate, a commercial offering. <br>
+However, the team has announced it will be fully open-sourced in the upcoming Avalonia 12 release.~~
 
 ### Project On Hold
-When the new version releases, I'll come back to this project.
+~~When the new version releases, I'll come back to this project.~~
+**2026-03-21**
+I was able to figure out how to use the prerelease 12 version and build the app uing the Avalonia WebView<br>
+Everything seems to work great and this one uses the Opens Source license<br>
+
