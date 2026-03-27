@@ -3,6 +3,14 @@
 Yes, soon the tabs will get better styles &amp; better tab text.<br>
 <img width="1411" height="784" alt="image" src="https://github.com/user-attachments/assets/6c8f8e9d-f86e-4cbb-82c6-814ac1983336" />
 
+### Backlog
+- [ ] Add links to the quicklinks control
+- [ ] Clean up tab title so it doesn't show entire link text (remove http etc)
+- [ ] fix links that open in a new window - discover how to open them in current window
+- [ ] allow show source
+- [ ] as a user I want to create a new tab without typing a URL
+- [ ] as a user I want a way. to save common links i use (bookmarks)
+
 #### As I Began Building
 ~~Discovered that the webview required a commercial license in Avalonia 11, but is soon coming.~~
 
