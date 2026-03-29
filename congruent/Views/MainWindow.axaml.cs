@@ -34,7 +34,36 @@ public partial class MainWindow : Window
 
    private async void QuickLinkChanged(object? sender, RoutedEventArgs e){
         }
-private void OnDoSomething(object? sender, RoutedEventArgs e)
+
+private void Cut_Click(object? sender, RoutedEventArgs e)
+{
+   Console.WriteLine("Cutting...");
+    if (sender is MenuItem mi &&
+        mi.Parent is ContextMenu cm &&
+        cm.PlacementTarget is TextBox tb)
+        tb.Cut();
+}
+
+private void Copy_Click(object? sender, RoutedEventArgs e)
+{
+   Console.WriteLine("Copying...");
+    if (sender is MenuItem mi &&
+        mi.Parent is ContextMenu cm &&
+        cm.PlacementTarget is TextBox tb)
+        tb.Copy();
+}
+
+private void Paste_Click(object? sender, RoutedEventArgs e)
+{
+   Console.WriteLine("Pasting...");
+    if (sender is MenuItem mi &&
+        mi.Parent is ContextMenu cm &&
+        cm.PlacementTarget is TextBox tb)
+        tb.Paste();
+}
+
+
+   private void OnDoSomething(object? sender, RoutedEventArgs e)
 {
     if (sender is MenuItem mi &&
         mi.Parent is ContextMenu cm &&

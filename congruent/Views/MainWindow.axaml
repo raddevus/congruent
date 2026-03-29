@@ -1,4 +1,5 @@
 <Window xmlns="https://github.com/avaloniaui"
+        xmlns:controls="clr-namespace:Avalonia.Controls;assembly=Avalonia.Controls"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:congruent.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -42,21 +43,13 @@
            <TextBox Name="NavPathTB" KeyDown="OnTextBoxKeyDown" Grid.Column="2">
            <TextBox.ContextMenu>
         <ContextMenu>
-            <!-- Default editing commands -->
-            <MenuItem Header="Cut"
-                      Command="{Binding Cut, RelativeSource={RelativeSource AncestorType=TextBox}}"/>
-
-            <MenuItem Header="Copy"
-                      Command="{Binding Copy, RelativeSource={RelativeSource AncestorType=TextBox}}"/>
-
-            <MenuItem Header="Paste"
-                      Command="{Binding Paste, RelativeSource={RelativeSource AncestorType=TextBox}}"/>
+            <MenuItem Header="Cut" Click="Cut_Click"/>
+            <MenuItem Header="Copy" Click="Copy_Click"/>
+            <MenuItem Header="Paste" Click="Paste_Click"/>
 
             <Separator/>
 
-            <!-- Your custom item -->
-            <MenuItem Header="Do Something"
-                      Click="OnDoSomething"/>
+            <MenuItem Header="Do Something" Click="OnDoSomething"/>
         </ContextMenu>
     </TextBox.ContextMenu>
     </TextBox>
