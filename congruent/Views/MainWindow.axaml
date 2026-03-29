@@ -49,7 +49,7 @@
 
             <Separator/>
 
-            <MenuItem Header="Do Something" Click="OnDoSomething"/>
+            <MenuItem Header="Paste &amp; Go" Click="PasteAndGo"/>
         </ContextMenu>
     </TextBox.ContextMenu>
     </TextBox>

@@ -63,7 +63,7 @@ private void Paste_Click(object? sender, RoutedEventArgs e)
 }
 
 
-   private void OnDoSomething(object? sender, RoutedEventArgs e)
+   private void PasteAndGo(object? sender, RoutedEventArgs e)
 {
     if (sender is MenuItem mi &&
         mi.Parent is ContextMenu cm &&
