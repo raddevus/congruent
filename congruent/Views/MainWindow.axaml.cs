@@ -34,6 +34,17 @@ public partial class MainWindow : Window
 
    private async void QuickLinkChanged(object? sender, RoutedEventArgs e){
         }
+private void OnDoSomething(object? sender, RoutedEventArgs e)
+{
+    if (sender is MenuItem mi &&
+        mi.Parent is ContextMenu cm &&
+        cm.PlacementTarget is TextBox tb)
+    {
+        tb.Text += " [custom action]";
+    }
+}
+
+
    private void NavigationCompleted(object? sender, WebViewNavigationCompletedEventArgs args)
    {
       Console.WriteLine(" **** Nav Completed ****");

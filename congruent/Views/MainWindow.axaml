@@ -39,7 +39,27 @@
          VerticalContentAlignment = "Center"
          FontFamily="{StaticResource FiraCodeNerdFont}" 
          Grid.Column="1"/>
-           <TextBox Name="NavPathTB" KeyDown="OnTextBoxKeyDown" Grid.Column="2"/>
+           <TextBox Name="NavPathTB" KeyDown="OnTextBoxKeyDown" Grid.Column="2">
+           <TextBox.ContextMenu>
+        <ContextMenu>
+            <!-- Default editing commands -->
+            <MenuItem Header="Cut"
+                      Command="{Binding Cut, RelativeSource={RelativeSource AncestorType=TextBox}}"/>
+
+            <MenuItem Header="Copy"
+                      Command="{Binding Copy, RelativeSource={RelativeSource AncestorType=TextBox}}"/>
+
+            <MenuItem Header="Paste"
+                      Command="{Binding Paste, RelativeSource={RelativeSource AncestorType=TextBox}}"/>
+
+            <Separator/>
+
+            <!-- Your custom item -->
+            <MenuItem Header="Do Something"
+                      Click="OnDoSomething"/>
+        </ContextMenu>
+    </TextBox.ContextMenu>
+    </TextBox>
            </Grid>
 
     <!-- Original Grid with SplitterGrid -->
