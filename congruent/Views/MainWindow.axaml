@@ -50,6 +50,7 @@
             <Separator/>
 
             <MenuItem Header="Paste &amp; Go" Click="PasteAndGo"/>
+            <MenuItem Header="View Source" Click="ViewSource"/>
         </ContextMenu>
     </TextBox.ContextMenu>
     </TextBox>

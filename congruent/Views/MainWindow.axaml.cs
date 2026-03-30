@@ -140,7 +140,6 @@ transfer.Add(item);
 
    public string ValidateUrl(string url)
    {
-
        if (url.StartsWith("file:///", StringComparison.OrdinalIgnoreCase)){
           Console.WriteLine($"return url : {url}");
            return url; 
@@ -162,20 +161,29 @@ transfer.Add(item);
        return string.Empty;
    }
 
-   public void AddNewTab(string url)
+   public void AddNewTab(string url, bool isWebView = true)
    {
-       var webView = new NativeWebView
-       {
-           Source = new Uri(url)
-       };
+      TabItem tab = null;
+      if (isWebView){
+          var webView = new NativeWebView
+          {
+              Source = new Uri(url)
+          };
 
-       currentWebView = webView;
+          currentWebView = webView;
+          tab = new TabItem
+          {
+              Header = url,
+              Content = webView
+          };
+      }
+      else{
+         tab = new TabItem{
+            Header = NavPathTB.Text,
+            Content = url
+         };
+      }
 
-       var tab = new TabItem
-       {
-           Header = url,
-           Content = webView
-       };
 
        BrowserTabs.Items.Add(tab);
        BrowserTabs.SelectedItem = tab;
@@ -248,6 +256,22 @@ transfer.Add(item);
       }
       
       BrowserTabs.Items.Remove(currentTab);
+   }
+   
+   async private void ViewSource(object? sender, RoutedEventArgs e){
+      ViewSource(currentWebView);
+   }
+
+
+   private async void ViewSource(NativeWebView webView)
+   {
+      var result =  await webView.InvokeScript("document.documentElement.outerHTML");
+       if (result is string html)
+       {
+           // Show in a dialog, save to file, open in a new tab, etc.
+           Console.WriteLine(html);
+           AddNewTab(html, false);
+       }
    }
 
    private void OnDuplicateTab(object? sender, RoutedEventArgs e)
