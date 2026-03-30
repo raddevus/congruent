@@ -6,7 +6,8 @@ using Avalonia.Input.Platform;
 using Avalonia.Controls;
 using Avalonia.Interactivity;  // Adds items necessary for event handlers
 using System.Threading.Tasks;
-
+using congruent.ViewModels;
+using congruent.Models;
 
 namespace congruent.Views;
 
@@ -31,6 +32,10 @@ public partial class MainWindow : Window
        System.Threading.Thread.Sleep(100);
        wnd.Width -= 2;
        NavPathTB.Focus();
+       var vm = (MainWindowViewModel) DataContext;
+       vm.AllBookmarks.Add(new Bookmark(){
+             Title="test", Link="https://allos.dev",
+             IconSource = "📝"});
     }
     private async void TviClick(object? sender, SelectionChangedEventArgs e){
     }
