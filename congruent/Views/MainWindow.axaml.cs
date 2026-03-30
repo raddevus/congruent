@@ -47,6 +47,14 @@ private void Cut_Click(object? sender, RoutedEventArgs e)
 private void Copy_Click(object? sender, RoutedEventArgs e)
 {
    Console.WriteLine("Copying...");
+      try{
+         var clipboard = AppHelpers.Clipboard.GetClipboard();
+         clipboard?.WriteTextAsync(NavPathTB?.Text ?? string.Empty);
+      }
+      catch (Exception ex){
+         Console.WriteLine("Couldn't copy to clipboard.");
+      }
+
     if (sender is MenuItem mi &&
         mi.Parent is ContextMenu cm &&
         cm.PlacementTarget is TextBox tb)

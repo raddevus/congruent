@@ -1,36 +1,38 @@
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.VisualTree;
-using Avalonia.Input.Platform;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Input.Platform;
+using Avalonia.VisualTree;
 
 namespace AppHelpers;
 
-public class Clipboard
+public static class Clipboard
 {
-    public static IClipboard Get()
+    /// <summary>
+    /// Gets the platform clipboard in a cross-platform Avalonia 12-safe way.
+    /// Returns null if no clipboard is available for the current lifetime.
+    /// </summary>
+    public static IClipboard? GetClipboard()
     {
-        // Desktop
-        if (Application.Current?.ApplicationLifetime
-            is IClassicDesktopStyleApplicationLifetime { MainWindow: { } window })
+        var app = Application.Current;
+        if (app is null)
+            return null;
+
+        var lifetime = app.ApplicationLifetime;
+
+        // Desktop: Windows, Linux, macOS
+        if (lifetime is IClassicDesktopStyleApplicationLifetime { MainWindow: { } window })
+            return window.Clipboard;
+
+        // Single-view: Android, iOS, WASM, or other hosts
+        if (lifetime is ISingleViewApplicationLifetime { MainView: { } view })
         {
-            return window.Clipboard!;
+            var topLevel = TopLevel.GetTopLevel(view);
+            return topLevel?.Clipboard;
         }
 
-        // Android / iOS / Mobile
-        if (Application.Current?.ApplicationLifetime
-            is ISingleViewApplicationLifetime { MainView: { } mainView })
-        {
-            // Avalonia 12: MainView is Control, but GetVisualRoot() is on IVisual
-            if (mainView is IVisual visual)
-            {
-                var root = visual.GetVisualRoot();
-                if (root is TopLevel topLevel)
-                    return topLevel.Clipboard!;
-            }
-        }
-
-        return null!;
+        // Fallback: try to get a TopLevel from any visual root we can infer later if needed.
+        return null;
     }
 }
-
