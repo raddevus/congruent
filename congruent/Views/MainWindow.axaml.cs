@@ -70,9 +70,19 @@ transfer.Add(item);
         tb.Copy();
 }
 
-private void Paste_Click(object? sender, RoutedEventArgs e)
+async private void Paste_Click(object? sender, RoutedEventArgs e)
 {
    Console.WriteLine("Pasting...");
+      try{
+         var clipboard = AppHelpers.Clipboard.GetClipboard();
+         var data = await clipboard.TryGetDataAsync();
+      if (data is not null)
+      {
+          //string? text = await data.GetAsync();
+          var x = data.Contains<string>(new ReadOnlySpan<string>());
+          Console.WriteLine($"retrieved from clipboard: {x}");
+      }
+      } catch(Exception ex){ Console.WriteLine($"{ex.Message}");}
     if (sender is MenuItem mi &&
         mi.Parent is ContextMenu cm &&
         cm.PlacementTarget is TextBox tb)
