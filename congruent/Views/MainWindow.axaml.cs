@@ -75,18 +75,13 @@ async private void Paste_Click(object? sender, RoutedEventArgs e)
    Console.WriteLine("Pasting...");
       try{
          var clipboard = AppHelpers.Clipboard.GetClipboard();
-         var data = await clipboard.TryGetDataAsync();
-      if (data is not null)
-      {
-          //string? text = await data.GetAsync();
-          var x = data.Contains<string>(new ReadOnlySpan<string>());
-          Console.WriteLine($"retrieved from clipboard: {x}");
-      }
+         var data = await clipboard.TryGetTextAsync();
+         if (data is not null)
+         {
+             NavPathTB.Text = data;
+             Console.WriteLine($"retrieved from clipboard: {data}");
+         }
       } catch(Exception ex){ Console.WriteLine($"{ex.Message}");}
-    if (sender is MenuItem mi &&
-        mi.Parent is ContextMenu cm &&
-        cm.PlacementTarget is TextBox tb)
-        tb.Paste();
 }
 
 
