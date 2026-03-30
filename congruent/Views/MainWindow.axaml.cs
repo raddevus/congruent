@@ -70,9 +70,20 @@ transfer.Add(item);
         tb.Copy();
 }
 
-async private void Paste_Click(object? sender, RoutedEventArgs e)
-{
-   Console.WriteLine("Pasting...");
+   async private void Paste_Click(object? sender, RoutedEventArgs e)
+   {
+      Console.WriteLine("Pasting...");
+      PasteToNavPath();
+   }
+
+
+   async private void PasteAndGo(object? sender, RoutedEventArgs e)
+   {
+      PasteToNavPath();
+   }
+
+   async private void PasteToNavPath(){
+
       try{
          var clipboard = AppHelpers.Clipboard.GetClipboard();
          var data = await clipboard.TryGetTextAsync();
@@ -82,19 +93,7 @@ async private void Paste_Click(object? sender, RoutedEventArgs e)
              Console.WriteLine($"retrieved from clipboard: {data}");
          }
       } catch(Exception ex){ Console.WriteLine($"{ex.Message}");}
-}
-
-
-   private void PasteAndGo(object? sender, RoutedEventArgs e)
-{
-    if (sender is MenuItem mi &&
-        mi.Parent is ContextMenu cm &&
-        cm.PlacementTarget is TextBox tb)
-    {
-        tb.Text += " [custom action]";
-    }
-}
-
+   }
 
    private void NavigationCompleted(object? sender, WebViewNavigationCompletedEventArgs args)
    {
