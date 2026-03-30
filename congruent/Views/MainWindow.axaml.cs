@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using Avalonia;
 using Avalonia.Input;
+using Avalonia.Input.Platform;
 using Avalonia.Controls;
 using Avalonia.Interactivity;  // Adds items necessary for event handlers
 
@@ -44,12 +45,20 @@ private void Cut_Click(object? sender, RoutedEventArgs e)
         tb.Cut();
 }
 
-private void Copy_Click(object? sender, RoutedEventArgs e)
+async private void Copy_Click(object? sender, RoutedEventArgs e)
 {
    Console.WriteLine("Copying...");
       try{
          var clipboard = AppHelpers.Clipboard.GetClipboard();
-         clipboard?.WriteTextAsync(NavPathTB?.Text ?? string.Empty);
+         var item = DataTransferItem.CreateText(NavPathTB.Text);
+
+// 2. Create a DataTransfer and add the item
+var transfer = new DataTransfer();
+transfer.Add(item);
+
+         await clipboard!.SetDataAsync(transfer);
+//          Console.WriteLine($"{clipboard}");
+         //clipboard?.SetTextAsync(NavPathTB?.Text ?? string.Empty);
       }
       catch (Exception ex){
          Console.WriteLine("Couldn't copy to clipboard.");
