@@ -5,6 +5,7 @@ using Avalonia.Input;
 using Avalonia.Input.Platform;
 using Avalonia.Controls;
 using Avalonia.Interactivity;  // Adds items necessary for event handlers
+using System.Threading.Tasks;
 
 
 namespace congruent.Views;
@@ -79,10 +80,11 @@ transfer.Add(item);
 
    async private void PasteAndGo(object? sender, RoutedEventArgs e)
    {
-      PasteToNavPath();
+      await PasteToNavPath();
+      NavigateToUrl();
    }
 
-   async private void PasteToNavPath(){
+   async private Task<bool> PasteToNavPath(){
 
       try{
          var clipboard = AppHelpers.Clipboard.GetClipboard();
@@ -92,7 +94,11 @@ transfer.Add(item);
              NavPathTB.Text = data;
              Console.WriteLine($"retrieved from clipboard: {data}");
          }
-      } catch(Exception ex){ Console.WriteLine($"{ex.Message}");}
+         return true;
+      } catch(Exception ex){ 
+         Console.WriteLine($"{ex.Message}");
+         return false;
+      }
    }
 
    private void NavigationCompleted(object? sender, WebViewNavigationCompletedEventArgs args)
@@ -109,21 +115,24 @@ transfer.Add(item);
 
        }
    }
-   
+
+  private void NavigateToUrl(){
+       var targetUrl = ValidateUrl(NavPathTB.Text);
+       if (targetUrl == string.Empty){
+          // if it's an invalid URL throw it away & return
+          NavPathTB.Text = string.Empty;
+          NavPathTB.Focus();
+          return;
+       }
+       NavPathTB.Text = targetUrl;
+      AddNewTab(targetUrl.ToString());
+  }
+
    private void OnTextBoxKeyDown(object sender, KeyEventArgs e)
    {
        if (e.Key == Key.Enter)
        {
-          var targetUrl = ValidateUrl(NavPathTB.Text);
-          if (targetUrl == string.Empty){
-             // if it's an invalid URL throw it away & return
-             NavPathTB.Text = string.Empty;
-             NavPathTB.Focus();
-             return;
-          }
-          NavPathTB.Text = targetUrl;
-//          MainWebView.Source = new System.Uri(targetUrl);
-         AddNewTab(targetUrl.ToString());
+         NavigateToUrl();
        }
    }
 
