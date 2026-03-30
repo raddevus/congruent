@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace congruent.Models;
 
-public class Bookmark{
+public class Bookmark : INotifyPropertyChanged {
    string Title {get;set;}
    string Link {get;set;}
    string? FolderName{get;set;}
