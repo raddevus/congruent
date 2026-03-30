@@ -80,8 +80,10 @@ transfer.Add(item);
 
    async private void PasteAndGo(object? sender, RoutedEventArgs e)
    {
-      await PasteToNavPath();
-      NavigateToUrl();
+      var result = await PasteToNavPath();
+      if (result){
+         NavigateToUrl();
+      }
    }
 
    async private Task<bool> PasteToNavPath(){
