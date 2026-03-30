@@ -62,9 +62,17 @@
                 Grid.Column="0"
                 MinWidth="100"
                 Background="#eeeeee">
-            <ListBox x:Name="QuickLinksLB"
-                     SelectionMode="Single"
-                     SelectionChanged="QuickLinkChanged"/>
+            <TreeView Name="BookmarkTree" ItemsSource="{Binding AllBookmarks}" SelectionChanged="TviClick">
+       <TreeView.ItemTemplate>
+           <TreeDataTemplate ItemsSource="{Binding Children}">
+               <StackPanel Orientation="Horizontal">
+                   <TextBlock Text="{Binding IconSource, Mode=TwoWay}" Padding="4,0,4,0" FontSize="24" VerticalAlignment="Center" />
+                   <TextBlock Text="{Binding Title}" VerticalAlignment="Center"/>
+               </StackPanel>
+           </TreeDataTemplate>
+       </TreeView.ItemTemplate>
+   </TreeView>
+               
         </Border>
 
         <GridSplitter Grid.Column="1" Name="MainSplitter"

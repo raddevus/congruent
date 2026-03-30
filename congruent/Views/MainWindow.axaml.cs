@@ -32,30 +32,28 @@ public partial class MainWindow : Window
        wnd.Width -= 2;
        NavPathTB.Focus();
     }
+    private async void TviClick(object? sender, SelectionChangedEventArgs e){
+    }
 
+   private void Cut_Click(object? sender, RoutedEventArgs e)
+   {
+      Console.WriteLine("Cutting...");
+       if (sender is MenuItem mi &&
+           mi.Parent is ContextMenu cm &&
+           cm.PlacementTarget is TextBox tb)
+           tb.Cut();
+   }
 
-   private async void QuickLinkChanged(object? sender, RoutedEventArgs e){
-        }
+   async private void Copy_Click(object? sender, RoutedEventArgs e)
+   {
+      Console.WriteLine("Copying...");
+         try{
+            var clipboard = AppHelpers.Clipboard.GetClipboard();
+            var item = DataTransferItem.CreateText(NavPathTB.Text);
 
-private void Cut_Click(object? sender, RoutedEventArgs e)
-{
-   Console.WriteLine("Cutting...");
-    if (sender is MenuItem mi &&
-        mi.Parent is ContextMenu cm &&
-        cm.PlacementTarget is TextBox tb)
-        tb.Cut();
-}
-
-async private void Copy_Click(object? sender, RoutedEventArgs e)
-{
-   Console.WriteLine("Copying...");
-      try{
-         var clipboard = AppHelpers.Clipboard.GetClipboard();
-         var item = DataTransferItem.CreateText(NavPathTB.Text);
-
-// 2. Create a DataTransfer and add the item
-var transfer = new DataTransfer();
-transfer.Add(item);
+   // 2. Create a DataTransfer and add the item
+   var transfer = new DataTransfer();
+   transfer.Add(item);
 
          await clipboard!.SetDataAsync(transfer);
 //          Console.WriteLine($"{clipboard}");
@@ -110,11 +108,6 @@ transfer.Add(item);
        {
            // Navigation completed successfully
            Console.WriteLine("I'm done.");
-          if (!QuickLinksLB.Items.Contains(NavPathTB.Text)){
-                QuickLinksLB.Items.Add(NavPathTB.Text);
-          }
-                
-
        }
    }
 
