@@ -265,7 +265,7 @@ transfer.Add(item);
 
    private async void ViewSource(NativeWebView webView)
    {
-      var result =  await webView.InvokeScript("document.documentElement.outerHTML");
+      var result =  await webView?.InvokeScript("document.documentElement.outerHTML");
        if (result is string html)
        {
            // Show in a dialog, save to file, open in a new tab, etc.
@@ -280,6 +280,7 @@ transfer.Add(item);
 
    private void OnReloadTab(object? sender, RoutedEventArgs e)
    {
+      currentWebView.Source = new Uri(NavPathTB.Text);
    }
 
 
