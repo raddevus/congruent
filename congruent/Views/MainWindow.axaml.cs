@@ -64,6 +64,10 @@ public partial class MainWindow : Window
       
       private void NewFolder_Click(object? sender, RoutedEventArgs e)
       {
+          if (BookmarkTree.SelectedItem is Bookmark bm && string.IsNullOrEmpty(bm.Link))
+          {
+             Console.WriteLine($"bm: {bm.Title}");
+          }
       }
 
       private void CopyLink_Click(object? sender, RoutedEventArgs e)
