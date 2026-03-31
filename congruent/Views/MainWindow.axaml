@@ -60,7 +60,7 @@
     <Grid Grid.Row="1" ColumnDefinitions="Auto,4,*">
         <Border x:Name="NavPane"
                 Grid.Column="0"
-                MinWidth="100">
+                >
             <TreeView Name="BookmarkTree" ItemsSource="{Binding AllBookmarks}" SelectionChanged="TviClick">
          <TreeView.ContextMenu>
          <ContextMenu>
