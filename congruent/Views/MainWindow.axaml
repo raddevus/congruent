@@ -65,6 +65,7 @@
             <TreeView Name="BookmarkTree" ItemsSource="{Binding AllBookmarks}" SelectionChanged="TviClick">
          <TreeView.ContextMenu>
          <ContextMenu>
+            <MenuItem Header="Open Link In New Tab" Click="OpenLink_Click"/>
             <MenuItem Header="Copy (Link)" Click="CopyLink_Click"/>
         </ContextMenu>
         </TreeView.ContextMenu>

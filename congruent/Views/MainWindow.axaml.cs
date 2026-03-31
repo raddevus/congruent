@@ -44,6 +44,20 @@ public partial class MainWindow : Window
        vm.AllBookmarks.Add(bm);
        // "📝"
     }
+      async private void OpenLink_Click(object? sender, RoutedEventArgs e)
+      {
+          if (BookmarkTree.SelectedItem is Bookmark bm && !string.IsNullOrEmpty(bm.Link))
+          {
+             Console.WriteLine("opening link");
+             CopyToClipboard(bm.Link);
+             var result = await PasteToNavPath();
+            if (result){
+               NavigateToUrl();
+            }
+
+          }
+      }
+
       private void CopyLink_Click(object? sender, RoutedEventArgs e)
       {
           if (BookmarkTree.SelectedItem is Bookmark bm)
