@@ -67,6 +67,10 @@ public partial class MainWindow : Window
           if (BookmarkTree.SelectedItem is Bookmark bm && string.IsNullOrEmpty(bm.Link))
           {
              Console.WriteLine($"bm: {bm.Title}");
+             bm.Children.Add(new Bookmark(){
+             Title= DateTime.Now.ToLongDateString(), 
+             IconSource = "📂",
+             });
           }
       }
 
