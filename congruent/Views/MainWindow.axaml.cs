@@ -49,6 +49,7 @@ public partial class MainWindow : Window
           if (BookmarkTree.SelectedItem is Bookmark bm)
           {
              Console.WriteLine($"bm: {bm.Link}");
+             CopyToClipboard(bm.Link);
           }
       }
     private async void TviClick(object? sender, SelectionChangedEventArgs e){
@@ -62,31 +63,27 @@ public partial class MainWindow : Window
            cm.PlacementTarget is TextBox tb)
            tb.Cut();
    }
-
-   async private void Copy_Click(object? sender, RoutedEventArgs e)
-   {
+   async private void CopyToClipboard(string textToCopy){
       Console.WriteLine("Copying...");
          try{
             var clipboard = AppHelpers.Clipboard.GetClipboard();
-            var item = DataTransferItem.CreateText(NavPathTB.Text);
+            var item = DataTransferItem.CreateText(textToCopy);
 
-   // 2. Create a DataTransfer and add the item
-   var transfer = new DataTransfer();
-   transfer.Add(item);
+            // 2. Create a DataTransfer and add the item
+            var transfer = new DataTransfer();
+            transfer.Add(item);
 
          await clipboard!.SetDataAsync(transfer);
-//          Console.WriteLine($"{clipboard}");
-         //clipboard?.SetTextAsync(NavPathTB?.Text ?? string.Empty);
       }
       catch (Exception ex){
          Console.WriteLine("Couldn't copy to clipboard.");
       }
+   }
 
-    if (sender is MenuItem mi &&
-        mi.Parent is ContextMenu cm &&
-        cm.PlacementTarget is TextBox tb)
-        tb.Copy();
-}
+   async private void Copy_Click(object? sender, RoutedEventArgs e)
+   {
+      CopyToClipboard(NavPathTB.Text);
+   }
 
    async private void Paste_Click(object? sender, RoutedEventArgs e)
    {
