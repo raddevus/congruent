@@ -63,6 +63,11 @@
                 MinWidth="100"
                 Background="#eeeeee">
             <TreeView Name="BookmarkTree" ItemsSource="{Binding AllBookmarks}" SelectionChanged="TviClick">
+         <TreeView.ContextMenu>
+         <ContextMenu>
+            <MenuItem Header="Copy (Link)" Click="CopyLink_Click"/>
+        </ContextMenu>
+        </TreeView.ContextMenu>
        <TreeView.ItemTemplate>
            <TreeDataTemplate ItemsSource="{Binding Children}">
                <StackPanel Orientation="Horizontal">

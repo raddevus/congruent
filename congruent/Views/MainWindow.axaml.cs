@@ -44,6 +44,13 @@ public partial class MainWindow : Window
        vm.AllBookmarks.Add(bm);
        // "📝"
     }
+      private void CopyLink_Click(object? sender, RoutedEventArgs e)
+      {
+          if (BookmarkTree.SelectedItem is Bookmark bm)
+          {
+             Console.WriteLine($"bm: {bm.Link}");
+          }
+      }
     private async void TviClick(object? sender, SelectionChangedEventArgs e){
     }
 
