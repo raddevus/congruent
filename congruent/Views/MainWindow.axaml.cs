@@ -33,9 +33,16 @@ public partial class MainWindow : Window
        wnd.Width -= 2;
        NavPathTB.Focus();
        var vm = (MainWindowViewModel) DataContext;
-       vm.AllBookmarks.Add(new Bookmark(){
-             Title="test", Link="https://allos.dev",
-             IconSource = "📝"});
+       var bm = new Bookmark(){
+             Title="Favorites", 
+             IconSource = "📂",
+             };
+      bm.Children.Add(new Bookmark()
+                   {Title="allos.dev",Link="https://allos.dev",IconSource="📝"});
+      bm.Children.Add(new Bookmark()
+                   {Title="cyapass.com",Link="https://cyapass.com",IconSource="📝"});
+       vm.AllBookmarks.Add(bm);
+       // "📝"
     }
     private async void TviClick(object? sender, SelectionChangedEventArgs e){
     }
