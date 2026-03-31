@@ -6,7 +6,8 @@ namespace congruent.Views;
 
 public partial class NewBMarkMsgBox : Window
 {
-   public string MainToken {get;set;}
+   public string LinkTitle {get;set;}
+   public string LinkUrl {get;set;}
    public NewBMarkMsgBox(): this("default message") {
    }
     public NewBMarkMsgBox(string message)
@@ -14,16 +15,17 @@ public partial class NewBMarkMsgBox : Window
         InitializeComponent();
         MessageText.Text = message;
         // Sets Focus to the SiteKey text box
-        this.Opened += (_, __) => {MainTokenText.Focus(); };
+        this.Opened += (_, __) => {LinkTitleTB.Focus(); };
     }
 
     private void Ok_Click(object? sender, RoutedEventArgs e)
     {
        // replace all white-space anywhere in string
-       MainToken = MainTokenText?.Text?.Replace(" ", "") ?? string.Empty;
-       if (string.IsNullOrEmpty(MainToken) || MainToken.Length < 10){
-          MessageText.Text = "The string must be at least 10 characters and not contain any spaces.";
-          MainTokenText.Focus();
+       LinkTitle = LinkTitleTB?.Text?.Replace(" ", "") ?? string.Empty;
+       LinkUrl = LinkUrlTB?.Text?.Replace(" ", "") ?? string.Empty;
+       if (string.IsNullOrEmpty(LinkTitle)){
+          MessageText.Text = "The string must be at least 1 character and not contain any spaces.";
+          LinkTitleTB.Focus();
           return;
        }
        Close(true);

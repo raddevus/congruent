@@ -8,8 +8,10 @@
     <StackPanel Margin="10">
         <TextBlock x:Name="MessageText" TextWrapping="Wrap" Margin="0,0,0,10"/>
 
-         <TextBlock Margin="10">Main Token Key</TextBlock>
-         <TextBox Name="MainTokenText" Margin="0 5" Text=""/>
+         <TextBlock Margin="10">Link Title</TextBlock>
+         <TextBox Name="LinkTitleTB" Margin="0 5" Text=""/>
+         <TextBlock Margin="10">Link URL</TextBlock>
+         <TextBox Name="LinkUrlTB" Margin="0 5" Text=""/>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10">
             <Button Content="OK" IsDefault="True" Click="Ok_Click"/>
             <Button Content="Cancel" IsCancel="True" Click="Cancel_Click"/>
