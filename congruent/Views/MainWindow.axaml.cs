@@ -16,6 +16,7 @@ public partial class MainWindow : Window
 
    private TabItem currentTab = null;
    private NativeWebView currentWebView = null;
+   private Bookmark currentBookmarkFolder = null;
 
     public MainWindow()
     {
@@ -58,7 +59,18 @@ public partial class MainWindow : Window
           }
       }
 
-      private void AddNewBookmark_Click(object? sender, RoutedEventArgs e){
+      async private void AddNewBookmark_Click(object? sender, RoutedEventArgs e){
+         var msg = new NewBMarkMsgBox("Please add a Link Title (shows up in the treeview) &amp; a Link URL.");
+          var title = msg.LinkTitle;
+          var url = msg.LinkUrl;
+          var vm = (MainWindowViewModel)DataContext;
+          bool dialogResult = await msg.ShowDialog<bool>(this);
+          if (dialogResult)
+          {
+            // insuring that values are set to some string
+            if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(url)){ return;}
+
+          }
 
       }
       
@@ -83,6 +95,10 @@ public partial class MainWindow : Window
           }
       }
     private async void TviClick(object? sender, SelectionChangedEventArgs e){
+       var targetNode = (sender as TreeView)?.SelectedItem as Bookmark;
+       if (string.IsNullOrEmpty(targetNode.Link)){
+             currentBookmarkFolder = targetNode;
+         }
     }
 
    private void Cut_Click(object? sender, RoutedEventArgs e)
