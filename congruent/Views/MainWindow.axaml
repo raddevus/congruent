@@ -68,6 +68,8 @@
             <MenuItem Header="Open Link In New Tab" Click="OpenLink_Click"/>
             <MenuItem Header="Add New Bookmark" Click="AddNewBookmark_Click"/>
             <MenuItem Header="Copy (Link)" Click="CopyLink_Click"/>
+            <Separator/>
+            <MenuItem Header="Create New Folder" Click="NewFolder_Click"/>
         </ContextMenu>
         </TreeView.ContextMenu>
        <TreeView.ItemTemplate>
