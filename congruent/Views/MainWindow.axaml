@@ -60,8 +60,7 @@
     <Grid Grid.Row="1" ColumnDefinitions="Auto,4,*">
         <Border x:Name="NavPane"
                 Grid.Column="0"
-                MinWidth="100"
-                Background="#eeeeee">
+                MinWidth="100">
             <TreeView Name="BookmarkTree" ItemsSource="{Binding AllBookmarks}" SelectionChanged="TviClick">
          <TreeView.ContextMenu>
          <ContextMenu>
@@ -72,8 +71,10 @@
        <TreeView.ItemTemplate>
            <TreeDataTemplate ItemsSource="{Binding Children}">
                <StackPanel Orientation="Horizontal">
-                   <TextBlock Text="{Binding IconSource, Mode=TwoWay}" Padding="4,0,4,0" FontSize="24" VerticalAlignment="Center" />
-                   <TextBlock Text="{Binding Title}" VerticalAlignment="Center"/>
+                   <TextBlock Text="{Binding IconSource, Mode=TwoWay}" Padding="4,0,4,0" FontSize="24" VerticalAlignment="Center" 
+                   />
+                   <TextBlock Text="{Binding Title}" VerticalAlignment="Center"
+                   />
                </StackPanel>
            </TreeDataTemplate>
        </TreeView.ItemTemplate>
