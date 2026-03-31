@@ -109,6 +109,14 @@ public partial class MainWindow : Window
       PasteToNavPath();
    }
 
+   async private void AddNewFavorite(object? sender, RoutedEventArgs e)
+   {
+       var vm = (MainWindowViewModel) DataContext;
+       var bm = vm.AllBookmarks.First(a => a.Title == "Favorites");
+       bm?.Children.Add(new Bookmark()
+                   {Title=NavPathTB.Text,Link=NavPathTB.Text,IconSource="📝"});
+
+   }
 
    async private void PasteAndGo(object? sender, RoutedEventArgs e)
    {
