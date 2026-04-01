@@ -60,7 +60,7 @@ public partial class MainWindow : Window
       }
 
       async private void AddNewBookmark_Click(object? sender, RoutedEventArgs e){
-         var msg = new NewBMarkMsgBox("Please add a Link Title (shows up in the treeview) &amp; a Link URL.");
+         var msg = new BMarkMsgBox("Please add a Link Title (shows up in the treeview) &amp; a Link URL.");
           var vm = (MainWindowViewModel)DataContext;
           bool dialogResult = await msg.ShowDialog<bool>(this);
           if (dialogResult)
@@ -71,7 +71,7 @@ public partial class MainWindow : Window
             // insuring that values are set to some string
             if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(url)){ return;}
             var bm = vm.AllBookmarks?.FirstOrDefault(b => b?.Title == currentBookmarkFolder);
-            Bookmark targetBm = null;
+            Bookmark targetBm = bm;
             if (bm == null){
                foreach (Bookmark b in vm.AllBookmarks){
                      foreach (Bookmark b2 in b.Children){

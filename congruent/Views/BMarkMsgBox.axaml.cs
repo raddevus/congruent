@@ -4,13 +4,13 @@ using congruent.Models;
 
 namespace congruent.Views;
 
-public partial class NewBMarkMsgBox : Window
+public partial class BMarkMsgBox : Window
 {
    public string LinkTitle {get;set;}
    public string LinkUrl {get;set;}
-   public NewBMarkMsgBox(): this("default message") {
+   public BMarkMsgBox(): this("default message") {
    }
-    public NewBMarkMsgBox(string message)
+    public BMarkMsgBox(string message)
     {
         InitializeComponent();
         MessageText.Text = message;
