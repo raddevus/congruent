@@ -70,9 +70,21 @@ public partial class MainWindow : Window
           var url = msg.LinkUrl;
             // insuring that values are set to some string
             if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(url)){ return;}
-            var bm = vm.AllBookmarks?.First(b => b?.Title == currentBookmarkFolder);
-            Console.WriteLine($"bm.Title: {bm.Title} folder.title {currentBookmarkFolder}");
-            bm?.Children.Add(new Bookmark(){
+            var bm = vm.AllBookmarks?.FirstOrDefault(b => b?.Title == currentBookmarkFolder);
+            Bookmark targetBm = null;
+            if (bm == null){
+               foreach (Bookmark b in vm.AllBookmarks){
+                     foreach (Bookmark b2 in b.Children){
+                        if (b2.Title == currentBookmarkFolder){
+                           targetBm = b2;
+                           continue;
+                        }
+                     }
+               }
+            }
+            Console.WriteLine($"bm : {targetBm}");
+            Console.WriteLine($"bm.Title: {targetBm?.Title} folder.title {currentBookmarkFolder}");
+            targetBm?.Children.Add(new Bookmark(){
              Title= title, 
              Link = url,
              IconSource = "📝",
@@ -105,6 +117,7 @@ public partial class MainWindow : Window
        var targetNode = (sender as TreeView)?.SelectedItem as Bookmark;
        if (string.IsNullOrEmpty(targetNode.Link)){
              currentBookmarkFolder = targetNode.Title;
+             Console.WriteLine($" currentBookmarkFolder: {currentBookmarkFolder}");
          }
     }
 
