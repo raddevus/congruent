@@ -16,7 +16,7 @@ public partial class MainWindow : Window
 
    private TabItem currentTab = null;
    private NativeWebView currentWebView = null;
-   private Bookmark currentBookmarkFolder = null;
+   private string currentBookmarkFolder = null;
 
     public MainWindow()
     {
@@ -70,8 +70,8 @@ public partial class MainWindow : Window
           var url = msg.LinkUrl;
             // insuring that values are set to some string
             if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(url)){ return;}
-            var bm = vm.AllBookmarks.First(b => b.Title == currentBookmarkFolder.Title);
-            Console.WriteLine($"bm.Title: {bm.Title} folder.title {currentBookmarkFolder.Title}");
+            var bm = vm.AllBookmarks?.First(b => b?.Title == currentBookmarkFolder);
+            Console.WriteLine($"bm.Title: {bm.Title} folder.title {currentBookmarkFolder}");
             bm?.Children.Add(new Bookmark(){
              Title= title, 
              Link = url,
@@ -104,7 +104,7 @@ public partial class MainWindow : Window
     private async void TviClick(object? sender, SelectionChangedEventArgs e){
        var targetNode = (sender as TreeView)?.SelectedItem as Bookmark;
        if (string.IsNullOrEmpty(targetNode.Link)){
-             currentBookmarkFolder = targetNode;
+             currentBookmarkFolder = targetNode.Title;
          }
     }
 
