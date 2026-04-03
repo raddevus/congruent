@@ -57,14 +57,18 @@ public class Bookmark : INotifyPropertyChanged {
 
    async public Task<ObservableCollection<Bookmark>> LoadFromFile(){
       var targetFile = Path.Combine(BookmarkPath,BookmarkFile);
-      Console.WriteLine($"targetFile : {targetFile}");
-      var allBookmarks = await File.ReadAllTextAsync(targetFile);
-      Console.WriteLine($"allBookmarks: {allBookmarks}");
-      Console.WriteLine("deserializing...");
-      var bookmarks =  JsonSerializer.Deserialize<List<Bookmark>>(allBookmarks);
-      Console.WriteLine($"bookmarks: {bookmarks.GetType()}");
-      ObservableCollection<Bookmark> bm = new();
-      foreach (Bookmark b in bookmarks){ bm.Add(b); Console.WriteLine($"b: {b}");} 
+      ObservableCollection<Bookmark> bm = null;
+
+      if (File.Exists(targetFile)){
+         bm = new();
+         Console.WriteLine($"targetFile : {targetFile}");
+         var allBookmarks = await File.ReadAllTextAsync(targetFile);
+         Console.WriteLine($"allBookmarks: {allBookmarks}");
+         Console.WriteLine("deserializing...");
+         var bookmarks =  JsonSerializer.Deserialize<List<Bookmark>>(allBookmarks);
+         Console.WriteLine($"bookmarks: {bookmarks.GetType()}");
+         foreach (Bookmark b in bookmarks){ bm.Add(b); Console.WriteLine($"b: {b}");} 
+      }
       return bm;
    }
 
