@@ -43,6 +43,18 @@ public class Bookmark : INotifyPropertyChanged {
    public ObservableCollection<Bookmark> Children { get; set; }
         = new ObservableCollection<Bookmark>();
 
+   async public Task<bool> Save(ObservableCollection<Bookmark> allBookmarks){
+      var targetFile = Path.Combine(BookmarkPath,BookmarkFile);
+      File.Delete(targetFile);
+      var output = JsonSerializer.Serialize(allBookmarks);
+      await File.AppendAllTextAsync(targetFile, output);
+     if (File.Exists(targetFile)){
+        Console.WriteLine($"Success! Wrote Bookmarks file. {targetFile}");
+        return true;
+     }
+     return false;
+   }
+
    async public Task<ObservableCollection<Bookmark>> LoadFromFile(){
       var targetFile = Path.Combine(BookmarkPath,BookmarkFile);
       Console.WriteLine($"targetFile : {targetFile}");
