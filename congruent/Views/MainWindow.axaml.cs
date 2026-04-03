@@ -28,7 +28,7 @@ public partial class MainWindow : Window
 
     }
     
-    protected override void OnOpened(EventArgs e){
+    async protected override void OnOpened(EventArgs e){
        base.OnOpened(e);
        MainWebView.Focus();
        MainWebView.Source = new System.Uri("https://duckduckgo.com");
@@ -39,7 +39,7 @@ public partial class MainWindow : Window
        wnd.Width -= 2;
        NavPathTB.Focus();
        var vm = (MainWindowViewModel) DataContext;
-       var bm = new Bookmark(){
+/*       var bm = new Bookmark(){
              Title="Favorites", 
              IconSource = "📂",
              };
@@ -47,7 +47,8 @@ public partial class MainWindow : Window
                    {Title="allos.dev",Link="https://allos.dev",IconSource="📝"});
       bm.Children.Add(new Bookmark()
                    {Title="cyapass.com",Link="https://cyapass.com",IconSource="📝"});
-       vm.AllBookmarks.Add(bm);
+       vm.AllBookmarks.Add(bm);*/
+       vm.AllBookmarks = await new Bookmark().LoadFromFile();
        // "📝"
     }
       async private void OpenLink_Click(object? sender, RoutedEventArgs e)

@@ -59,11 +59,12 @@ public class Bookmark : INotifyPropertyChanged {
       var targetFile = Path.Combine(BookmarkPath,BookmarkFile);
       Console.WriteLine($"targetFile : {targetFile}");
       var allBookmarks = await File.ReadAllTextAsync(targetFile);
+      Console.WriteLine($"allBookmarks: {allBookmarks}");
       Console.WriteLine("deserializing...");
       var bookmarks =  JsonSerializer.Deserialize<List<Bookmark>>(allBookmarks);
-      Console.WriteLine($"keys: {bookmarks}");
+      Console.WriteLine($"bookmarks: {bookmarks.GetType()}");
       ObservableCollection<Bookmark> bm = new();
-      foreach (Bookmark b in bookmarks){ bm.Add(b);} 
+      foreach (Bookmark b in bookmarks){ bm.Add(b); Console.WriteLine($"b: {b}");} 
       return bm;
    }
 
