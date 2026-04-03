@@ -39,18 +39,19 @@ public partial class MainWindow : Window
        wnd.Width -= 2;
        NavPathTB.Focus();
        var vm = (MainWindowViewModel) DataContext;
-/*       var bm = new Bookmark(){
+
+       var loadedBm = await new Bookmark().LoadFromFile();
+       if (loadedBm != null){
+          foreach (Bookmark b in loadedBm){
+            vm.AllBookmarks.Add(b);
+          }
+       }
+       else{
+         var bm = new Bookmark(){
              Title="Favorites", 
              IconSource = "📂",
              };
-       bm.Children.Add(new Bookmark()
-                   {Title="allos.dev",Link="https://allos.dev",IconSource="📝"});
-      bm.Children.Add(new Bookmark()
-                   {Title="cyapass.com",Link="https://cyapass.com",IconSource="📝"});
-       vm.AllBookmarks.Add(bm);*/
-       var loadedBm = await new Bookmark().LoadFromFile();
-       foreach (Bookmark b in loadedBm){
-         vm.AllBookmarks.Add(b);
+          vm.AllBookmarks.Add(bm);
        }
        // "📝"
     }
