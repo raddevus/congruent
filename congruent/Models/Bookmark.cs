@@ -55,7 +55,7 @@ public class Bookmark : INotifyPropertyChanged {
      return false;
    }
 
-   async public Task<ObservableCollection<Bookmark>> LoadFromFile(){
+   async public Task<List<Bookmark>> LoadFromFile(){
       var targetFile = Path.Combine(BookmarkPath,BookmarkFile);
       ObservableCollection<Bookmark> bm = null;
 
@@ -67,9 +67,11 @@ public class Bookmark : INotifyPropertyChanged {
          Console.WriteLine("deserializing...");
          var bookmarks =  JsonSerializer.Deserialize<List<Bookmark>>(allBookmarks);
          Console.WriteLine($"bookmarks: {bookmarks.GetType()}");
-         foreach (Bookmark b in bookmarks){ bm.Add(b); Console.WriteLine($"b: {b}");} 
+//         foreach (Bookmark b in bookmarks){ bm.Add(b); Console.WriteLine($"b: {b}");} 
+
+      return bookmarks;
       }
-      return bm;
+      return null;
    }
 
 }

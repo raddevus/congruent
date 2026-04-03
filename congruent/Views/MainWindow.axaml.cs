@@ -43,12 +43,15 @@ public partial class MainWindow : Window
              Title="Favorites", 
              IconSource = "📂",
              };
-      bm.Children.Add(new Bookmark()
+       bm.Children.Add(new Bookmark()
                    {Title="allos.dev",Link="https://allos.dev",IconSource="📝"});
       bm.Children.Add(new Bookmark()
                    {Title="cyapass.com",Link="https://cyapass.com",IconSource="📝"});
        vm.AllBookmarks.Add(bm);*/
-       vm.AllBookmarks = await new Bookmark().LoadFromFile();
+       var loadedBm = await new Bookmark().LoadFromFile();
+       foreach (Bookmark b in loadedBm){
+         vm.AllBookmarks.Add(b);
+       }
        // "📝"
     }
       async private void OpenLink_Click(object? sender, RoutedEventArgs e)
