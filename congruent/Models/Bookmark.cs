@@ -4,6 +4,8 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace congruent.Models;
 
@@ -40,5 +42,17 @@ public class Bookmark : INotifyPropertyChanged {
 
    public ObservableCollection<Bookmark> Children { get; set; }
         = new ObservableCollection<Bookmark>();
+
+   async public Task<ObservableCollection<Bookmark>> LoadFromFile(){
+      var targetFile = Path.Combine(BookmarkPath,BookmarkFile);
+      Console.WriteLine($"targetFile : {targetFile}");
+      var allBookmarks = await File.ReadAllTextAsync(targetFile);
+      Console.WriteLine("deserializing...");
+      var bookmarks =  JsonSerializer.Deserialize<List<Bookmark>>(allBookmarks);
+      Console.WriteLine($"keys: {bookmarks}");
+      ObservableCollection<Bookmark> bm = new();
+      foreach (Bookmark b in bookmarks){ bm.Add(b);} 
+      return bm;
+   }
 
 }
