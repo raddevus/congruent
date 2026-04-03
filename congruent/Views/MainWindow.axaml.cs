@@ -21,6 +21,11 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+        this.Closing += async (s,e)  =>  { 
+           var vm = (MainWindowViewModel)DataContext;
+           await new Bookmark().Save(vm.AllBookmarks);
+        };
+
     }
     
     protected override void OnOpened(EventArgs e){
