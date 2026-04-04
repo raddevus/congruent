@@ -15,17 +15,16 @@ public partial class AddFolderMsgBox : Window
         InitializeComponent();
         MessageText.Text = message;
         // Sets Focus to the SiteKey text box
-        this.Opened += (_, __) => {LinkTitleTB.Focus(); };
+        this.Opened += (_, __) => {FolderNameTB.Focus(); };
     }
 
     private void Ok_Click(object? sender, RoutedEventArgs e)
     {
        // replace all white-space anywhere in string
-       LinkTitle = LinkTitleTB?.Text?.Replace(" ", "") ?? string.Empty;
-       LinkUrl = LinkUrlTB?.Text?.Replace(" ", "") ?? string.Empty;
-       if (string.IsNullOrEmpty(LinkTitle)){
+       FolderName = FolderNameTB?.Text?.Replace(" ", "") ?? string.Empty;
+       if (string.IsNullOrEmpty(FolderName)){
           MessageText.Text = "The string must be at least 1 character and not contain any spaces.";
-          LinkTitleTB.Focus();
+          FolderNameTB.Focus();
           return;
        }
        Close(true);
