@@ -87,7 +87,7 @@ public partial class MainWindow : Window
                      foreach (Bookmark b2 in b.Children){
                         if (b2.Title == currentBookmarkFolder){
                            targetBm = b2;
-                           continue;
+                           break;
                         }
                      }
                }
