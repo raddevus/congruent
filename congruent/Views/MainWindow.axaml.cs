@@ -103,15 +103,23 @@ public partial class MainWindow : Window
 
       }
       
-      private void NewFolder_Click(object? sender, RoutedEventArgs e)
+      async private void NewFolder_Click(object? sender, RoutedEventArgs e)
       {
           if (BookmarkTree.SelectedItem is Bookmark bm && string.IsNullOrEmpty(bm.Link))
           {
              Console.WriteLine($"bm: {bm.Title}");
-             bm.Children.Add(new Bookmark(){
-             Title= DateTime.Now.ToLongDateString(), 
-             IconSource = "📂",
-             });
+            var msg = new AddFolderMsgBox("Please add a Link Title (shows up in the treeview) &amp; a Link URL.");
+             var vm = (MainWindowViewModel)DataContext;
+             bool dialogResult = await msg.ShowDialog<bool>(this);
+             if (dialogResult)
+             {
+                Console.WriteLine("dialog result is good");
+                var folderName = msg.FolderName;
+                bm.Children.Add(new Bookmark(){
+                Title = folderName, 
+                IconSource = "📂",
+                });
+             }
           }
       }
 
