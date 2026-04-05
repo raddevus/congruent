@@ -108,7 +108,7 @@ public partial class MainWindow : Window
           if (BookmarkTree.SelectedItem is Bookmark bm && string.IsNullOrEmpty(bm.Link))
           {
              Console.WriteLine($"bm: {bm.Title}");
-            var msg = new AddFolderMsgBox("Please add a Link Title (shows up in the treeview) &amp; a Link URL.");
+            var msg = new AddFolderMsgBox("Type the folder name you want to create.");
              var vm = (MainWindowViewModel)DataContext;
              bool dialogResult = await msg.ShowDialog<bool>(this);
              if (dialogResult)
