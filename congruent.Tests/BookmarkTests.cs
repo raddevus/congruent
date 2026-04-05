@@ -1,4 +1,7 @@
-﻿namespace congruent.Tests;
+﻿using System.Collections.Generic;
+using congruent.Models;
+
+namespace congruent.Tests;
 
 public class BoomarkTests
 {
