@@ -18,6 +18,7 @@ public class BookmarkTests
       Console.WriteLine($"bm.Count {bmList.Count}");
       foreach (Bookmark b in bmList){
          Console.WriteLine($"b.Title : {b.Title}");
+         Console.WriteLine($"b.Children : {b.Children.Count}");
       }
     }
 }
