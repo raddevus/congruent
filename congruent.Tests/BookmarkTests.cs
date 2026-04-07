@@ -6,7 +6,7 @@ namespace congruent.Tests;
 public class BookmarkTests
 {
     [Fact]
-    public void Test1()
+    async public Task ExamineBookmarksFromFile()
     {
       List<Bookmark> allBookmarks = new();
       // set bookmarkpath to the test debug directory
@@ -15,7 +15,7 @@ public class BookmarkTests
       });
       Console.WriteLine($"base path => {allBookmarks[0].BookmarkPath}");
 
-      allBookmarks[0].LoadFromFile();
-      Console.WriteLine($"allBookmarks.Count {allBookmarks.Count}");
+      var bmList = await allBookmarks[0].LoadFromFile();
+      Console.WriteLine($"bm.Count {bmList.Count}");
     }
 }
