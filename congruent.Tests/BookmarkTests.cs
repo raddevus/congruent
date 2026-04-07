@@ -14,5 +14,8 @@ public class BookmarkTests
            BookmarkPath=AppContext.BaseDirectory
       });
       Console.WriteLine($"base path => {allBookmarks[0].BookmarkPath}");
+
+      allBookmarks[0].LoadFromFile();
+      Console.WriteLine($"allBookmarks.Count {allBookmarks.Count}");
     }
 }

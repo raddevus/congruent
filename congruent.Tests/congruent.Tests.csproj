@@ -16,7 +16,12 @@
 
   <ItemGroup>
     <Using Include="Xunit" />
-  </ItemGroup>
+ </ItemGroup>
+
+ <ItemGroup>
+  <None Update="bookmarks.json" CopyToOutputDirectory="Always" />
+ </ItemGroup>
+
 
   <ItemGroup>
     <ProjectReference Include="..\congruent\congruent.csproj" />
