@@ -16,5 +16,8 @@ public class BookmarkTests
 
       var bmList = await bm.LoadFromFile();
       Console.WriteLine($"bm.Count {bmList.Count}");
+      foreach (Bookmark b in bmList){
+         Console.WriteLine($"b.Title : {b.Title}");
+      }
     }
 }
