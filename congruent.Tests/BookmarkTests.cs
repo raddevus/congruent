@@ -9,8 +9,10 @@ public class BookmarkTests
     public void Test1()
     {
       List<Bookmark> allBookmarks = new();
-      allBookmarks.Add(new Bookmark());
-
-      Console.WriteLine(allBookmarks[0].BookmarkPath);
+      // set bookmarkpath to the test debug directory
+      allBookmarks.Add(new Bookmark(){
+           BookmarkPath=AppContext.BaseDirectory
+      });
+      Console.WriteLine($"base path => {allBookmarks[0].BookmarkPath}");
     }
 }
