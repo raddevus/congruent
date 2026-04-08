@@ -31,6 +31,7 @@ public class BookmarkTests
          if (counter == targetCounter){
             foreach (Bookmark i in allBms[x].Children){ allBms.Add(i);}
             targetCounter = allBms[x].Children.Count;
+            Console.WriteLine($"targetCounter: {targetCounter}");
             counter = 0;
          }
       }
