@@ -17,22 +17,20 @@ public class BookmarkTests
 
       var bmList = await bm.LoadFromFile();
       Console.WriteLine($"bm.Count {bmList.Count}");
-      ObservableCollection<Bookmark> allBms = new();
+      List<Bookmark> allBms = new();
       foreach (Bookmark b in bmList){
          allBms.Add(b);
       }
       var targetCounter = allBms.Count;
       var counter = 0;
-      foreach (Bookmark b in allBms){
+      for (int x = 0;x < allBms.Count; x++){
          counter++;
          Console.WriteLine($"counter: {targetCounter}");
-         Console.WriteLine($"b.Title : {b.Title}");
-//       foreach (Bookmark i in 
-         Console.WriteLine($"b.Children : {b.Children.Count}");
+         Console.WriteLine($"b.Title : {allBms[x].Title}");
+         Console.WriteLine($"b.Children : {allBms[x].Children.Count}");
          if (counter == targetCounter){
-            Console.WriteLine("in here...");
-            allBms = b.Children as ObservableCollection<Bookmark>;
-            targetCounter = b.Children.Count;
+            foreach (Bookmark i in allBms[x].Children){ allBms.Add(i);}
+            targetCounter = allBms[x].Children.Count;
             counter = 0;
          }
       }
