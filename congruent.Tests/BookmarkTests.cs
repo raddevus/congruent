@@ -66,4 +66,33 @@ public class BookmarkTests
          }
       }
     }
+
+    [Fact]
+    async public Task ExamineBookmarksFrom7Levels()
+    {
+      Bookmark bm = new(){
+           BookmarkPath=AppContext.BaseDirectory,
+           BookmarkFile="7levels.json"
+      };
+
+      Console.WriteLine($"base path => {bm.BookmarkPath}");
+
+      var bmList = await bm.LoadFromFile();
+      Console.WriteLine($"bm.Count {bmList.Count}");
+      List<Bookmark> allBms = new();
+      foreach (Bookmark b in bmList){
+         allBms.Add(b);
+      }
+      var targetCounter = allBms.Count;
+      var counter = 0;
+      for (int x = 0;x < allBms.Count; x++){
+         counter++;
+         Console.WriteLine($"b.Title : {allBms[x].Title}");
+            foreach (Bookmark i in allBms[x].Children){ allBms.Add(i);}
+         if (counter == targetCounter){
+            targetCounter = allBms[x].Children.Count;
+            counter = 0;
+         }
+      }
+    }
 }

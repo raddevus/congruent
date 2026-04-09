@@ -15,7 +15,7 @@ public class Bookmark : INotifyPropertyChanged {
 
    [JsonIgnore]
    public string BookmarkPath{get; set;} = Path.GetDirectoryName(Environment.ProcessPath);
-   private string BookmarkFile = "bookmarks.json";
+   public string BookmarkFile{get;set;} = "bookmarks.json";
 
    private string iconSource;
    public string IconSource {
