@@ -8,6 +8,7 @@ using Avalonia.Interactivity;  // Adds items necessary for event handlers
 using System.Threading.Tasks;
 using congruent.ViewModels;
 using congruent.Models;
+using System.Collections.Generic;
 
 namespace congruent.Views;
 
@@ -82,16 +83,28 @@ public partial class MainWindow : Window
             if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(url)){ return;}
             var bm = vm.AllBookmarks?.FirstOrDefault(b => b?.Title == currentBookmarkFolder);
             Bookmark targetBm = bm;
-            if (bm == null){
-               foreach (Bookmark b in vm.AllBookmarks){
-                     foreach (Bookmark b2 in b.Children){
-                        if (b2.Title == currentBookmarkFolder){
-                           targetBm = b2;
-                           break;
-                        }
-                     }
+
+            List<Bookmark> allBms = new();
+            foreach (Bookmark b in vm.AllBookmarks){
+               allBms.Add(b);
+            }
+
+            var targetCounter = allBms.Count;
+            var counter = 0;
+            for (int x = 0;x < allBms.Count; x++){
+               counter++;
+               Console.WriteLine($"b.Title : {allBms[x].Title}");
+               if (allBms[x].Title == currentBookmarkFolder){
+                  targetBm = allBms[x];
+                 break; 
+               }
+               foreach (Bookmark i in allBms[x].Children){ allBms.Add(i);}
+               if (counter == targetCounter){
+                  targetCounter = allBms[x].Children.Count;
+                  counter = 0;
                }
             }
+
             Console.WriteLine($"bm : {targetBm}");
             Console.WriteLine($"bm.Title: {targetBm?.Title} folder.title {currentBookmarkFolder}");
             targetBm?.Children.Add(new Bookmark(){
