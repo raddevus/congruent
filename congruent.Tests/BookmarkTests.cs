@@ -25,12 +25,14 @@ public class BookmarkTests
       var counter = 0;
       for (int x = 0;x < allBms.Count; x++){
          counter++;
-         Console.WriteLine($"counter: {targetCounter}");
+         Console.WriteLine($"x: {x} counter: {targetCounter}");
          Console.WriteLine($"b.Title : {allBms[x].Title}");
          Console.WriteLine($"b.Children : {allBms[x].Children.Count}");
-         if (counter == targetCounter){
             foreach (Bookmark i in allBms[x].Children){ allBms.Add(i);}
+         if (counter == targetCounter){
+            Console.WriteLine($"allBms.Count {allBms.Count}");
             targetCounter = allBms[x].Children.Count;
+            
             Console.WriteLine($"targetCounter: {targetCounter}");
             counter = 0;
          }
