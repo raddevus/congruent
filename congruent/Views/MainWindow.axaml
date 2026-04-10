@@ -69,6 +69,8 @@
             <MenuItem Header="Add New Bookmark" Click="AddNewBookmark_Click"/>
             <MenuItem Header="Copy (Link)" Click="CopyLink_Click"/>
             <Separator/>
+            <MenuItem Header="Move Bookmark (to folder)" Click="MoveBookmark"/>
+            <Separator/>
             <MenuItem Header="Create New Folder" Click="NewFolder_Click"/>
         </ContextMenu>
         </TreeView.ContextMenu>

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using congruent.ViewModels;
 using congruent.Models;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace congruent.Views;
 
@@ -81,7 +82,6 @@ public partial class MainWindow : Window
 
       async private void AddNewBookmark_Click(object? sender, RoutedEventArgs e){
          var msg = new BMarkMsgBox("Please add a Link Title (shows up in the treeview) &amp; a Link URL.");
-          var vm = (MainWindowViewModel)DataContext;
           bool dialogResult = await msg.ShowDialog<bool>(this);
           if (dialogResult)
           {
@@ -90,7 +90,20 @@ public partial class MainWindow : Window
           var url = msg.LinkUrl;
             // insuring that values are set to some string
             if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(url)){ return;}
+            await FindFolderAddBookmark(currentBookmarkFolder, title, url);
+          }
+
+      }
+
+      async private Task<bool> FindFolderAddBookmark(
+            string targetFolder,
+            string title,
+            string url){
+
+            var vm = (MainWindowViewModel)DataContext;
             var bm = vm.AllBookmarks?.FirstOrDefault(b => b?.Title == currentBookmarkFolder);
+
+            Console.WriteLine($"vm.AllBookmarks.Count: {vm.AllBookmarks.Count}");
             Bookmark targetBm = bm;
 
             List<Bookmark> allBms = new();
@@ -103,7 +116,7 @@ public partial class MainWindow : Window
             for (int x = 0;x < allBms.Count; x++){
                counter++;
                Console.WriteLine($"b.Title : {allBms[x].Title}");
-               if (allBms[x].Title == currentBookmarkFolder){
+               if (allBms[x].Title == targetFolder){
                   targetBm = allBms[x];
                  break; 
                }
@@ -121,12 +134,31 @@ public partial class MainWindow : Window
              Link = url,
              IconSource = "📝",
              });
-            //Added a new bookmark so we save to Bookmarks file
-            allBms?[0]?.Save(vm.AllBookmarks);
-          }
 
+            //Added a new bookmark so we save to Bookmarks file
+            vm.AllBookmarks?[0]?.Save(vm.AllBookmarks);
+            return true;
       }
-      
+
+      async private void MoveBookmark(object? sender, RoutedEventArgs e){
+                  
+          if (BookmarkTree.SelectedItem is Bookmark bm && !string.IsNullOrEmpty(bm.Link))
+          {
+
+            var msg = new AddFolderMsgBox("Type the folder name you want to create.");
+             var vm = (MainWindowViewModel)DataContext;
+             bool dialogResult = await msg.ShowDialog<bool>(this);
+             if (dialogResult)
+             {
+                // find the foldername that the user wants to move
+                // this link to
+                var folderName = msg.FolderName;
+
+
+             }
+          }
+      }
+
       async private void NewFolder_Click(object? sender, RoutedEventArgs e)
       {
           if (BookmarkTree.SelectedItem is Bookmark bm && string.IsNullOrEmpty(bm.Link))
@@ -146,6 +178,7 @@ public partial class MainWindow : Window
              }
           }
       }
+
 
       private void CopyLink_Click(object? sender, RoutedEventArgs e)
       {
