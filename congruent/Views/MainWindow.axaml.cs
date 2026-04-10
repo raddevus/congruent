@@ -112,6 +112,8 @@ public partial class MainWindow : Window
              Link = url,
              IconSource = "📝",
              });
+            //Added a new bookmark so we save to Bookmarks file
+            allBms?[0]?.Save(vm.AllBookmarks);
           }
 
       }
