@@ -54,6 +54,15 @@ public partial class MainWindow : Window
              };
           vm.AllBookmarks.Add(bm);
        }
+         // get the root item of the bookmark tree      
+         var rootItem = BookmarkTree.Items[0];
+         // You have to convert the bookmark item into a TreeViewItem
+         var rootTreeViewItem = BookmarkTree.TreeContainerFromItem(rootItem) as TreeViewItem;
+
+         if (rootTreeViewItem != null)
+         {
+             BookmarkTree.ExpandSubTree(rootTreeViewItem);
+         }
        // "📝"
     }
       async private void OpenLink_Click(object? sender, RoutedEventArgs e)
