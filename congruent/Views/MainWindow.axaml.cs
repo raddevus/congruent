@@ -92,7 +92,6 @@ public partial class MainWindow : Window
             if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(url)){ return;}
             await FindFolderAddBookmark(currentBookmarkFolder, title, url);
           }
-
       }
 
       async private Task<bool> FindFolderAddBookmark(
