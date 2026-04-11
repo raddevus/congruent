@@ -90,12 +90,26 @@ public partial class MainWindow : Window
           var url = msg.LinkUrl;
             // insuring that values are set to some string
             if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(url)){ return;}
-            await FindFolderAddBookmark(currentBookmarkFolder, title, url);
+            Bookmark targetBm = await FindTargetBookmark(currentBookmarkFolder, title, url);
+            if (targetBm != null){
+               var vm = (MainWindowViewModel) DataContext;
+               Console.WriteLine($"bm : {targetBm}");
+               Console.WriteLine($"bm.Title: {targetBm?.Title} folder.title {currentBookmarkFolder}");
+               targetBm?.Children.Add(new Bookmark(){
+                Title= title, 
+                Link = url,
+                IconSource = "📝",
+                });
+
+               //Added a new bookmark so we save to Bookmarks file
+               targetBm.Save(vm.AllBookmarks);
+            }
+
           }
       }
 
-      async private Task<bool> FindFolderAddBookmark(
-            string targetFolder,
+      async private Task<Bookmark?> FindTargetBookmark(
+            string targetFolderTitle,
             string title,
             string url){
 
@@ -103,7 +117,7 @@ public partial class MainWindow : Window
             var bm = vm.AllBookmarks?.FirstOrDefault(b => b?.Title == currentBookmarkFolder);
 
             Console.WriteLine($"vm.AllBookmarks.Count: {vm.AllBookmarks.Count}");
-            Bookmark targetBm = bm;
+            Bookmark targetBm = null;
 
             List<Bookmark> allBms = new();
             foreach (Bookmark b in vm.AllBookmarks){
@@ -115,9 +129,9 @@ public partial class MainWindow : Window
             for (int x = 0;x < allBms.Count; x++){
                counter++;
                Console.WriteLine($"b.Title : {allBms[x].Title}");
-               if (allBms[x].Title == targetFolder){
+               if (allBms[x].Title == targetFolderTitle){
                   targetBm = allBms[x];
-                 break; 
+                  return targetBm;
                }
                foreach (Bookmark i in allBms[x].Children){ allBms.Add(i);}
                if (counter == targetCounter){
@@ -126,17 +140,7 @@ public partial class MainWindow : Window
                }
             }
 
-            Console.WriteLine($"bm : {targetBm}");
-            Console.WriteLine($"bm.Title: {targetBm?.Title} folder.title {currentBookmarkFolder}");
-            targetBm?.Children.Add(new Bookmark(){
-             Title= title, 
-             Link = url,
-             IconSource = "📝",
-             });
-
-            //Added a new bookmark so we save to Bookmarks file
-            vm.AllBookmarks?[0]?.Save(vm.AllBookmarks);
-            return true;
+            return null;
       }
 
       async private void MoveBookmark(object? sender, RoutedEventArgs e){
