@@ -90,7 +90,7 @@ public partial class MainWindow : Window
           var url = msg.LinkUrl;
             // insuring that values are set to some string
             if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(url)){ return;}
-            Bookmark targetBm = await FindTargetBookmark(currentBookmarkFolder, title, url);
+            Bookmark targetBm = await FindTargetBookmark(currentBookmarkFolder);
             if (targetBm != null){
                var vm = (MainWindowViewModel) DataContext;
                Console.WriteLine($"bm : {targetBm}");
@@ -104,14 +104,11 @@ public partial class MainWindow : Window
                //Added a new bookmark so we save to Bookmarks file
                targetBm.Save(vm.AllBookmarks);
             }
-
           }
       }
 
       async private Task<Bookmark?> FindTargetBookmark(
-            string targetFolderTitle,
-            string title,
-            string url){
+            string targetFolderTitle){
 
             var vm = (MainWindowViewModel)DataContext;
             var bm = vm.AllBookmarks?.FirstOrDefault(b => b?.Title == currentBookmarkFolder);
@@ -155,11 +152,21 @@ public partial class MainWindow : Window
              {
                 // find the foldername that the user wants to move
                 // this link to
-                var folderName = msg.FolderName;
-
-
+                Bookmark targetBm = await FindTargetBookmark(msg.FolderName);
+                if (targetBm == null){
+                   // Let user know we couldn't find a folder with the provided Title
+                   Console.WriteLine("Couldn't find a matching bookmark folder.");
+                   return;
+                }
+                //We've found the targetBm folder so we add it to the Children 
+                targetBm.Children.Add(bm);
+                // Now we need to delete it from the old location.
              }
           }
+          else{
+             // Tell user that we cannot move a Folder, only a link
+             // 
+         }
       }
 
       async private void NewFolder_Click(object? sender, RoutedEventArgs e)
