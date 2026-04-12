@@ -147,10 +147,9 @@ public partial class MainWindow : Window
             return null;
       }
 
-      async private void RemoveBookmark(){
+     async private void DeleteBookmark(){
 
-      }
-      
+     }
       async private void MoveBookmark(object? sender, RoutedEventArgs e){
                   
           if (BookmarkTree.SelectedItem is Bookmark bm && !string.IsNullOrEmpty(bm.Link))
