@@ -90,7 +90,8 @@ public partial class MainWindow : Window
           var url = msg.LinkUrl;
             // insuring that values are set to some string
             if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(url)){ return;}
-            Bookmark targetBm = await FindTargetBookmark(currentBookmarkFolder);
+
+            Bookmark? targetBm = await FindTargetBookmark(currentBookmarkFolder);
             if (targetBm != null){
                var vm = (MainWindowViewModel) DataContext;
                Console.WriteLine($"bm : {targetBm}");
@@ -108,13 +109,12 @@ public partial class MainWindow : Window
       }
 
       async private Task<Bookmark?> FindTargetBookmark(
-            string targetFolderTitle){
-
+            string targetFolderTitle, bool isGetParent = false){
             var vm = (MainWindowViewModel)DataContext;
             var bm = vm.AllBookmarks?.FirstOrDefault(b => b?.Title == currentBookmarkFolder);
 
             Console.WriteLine($"vm.AllBookmarks.Count: {vm.AllBookmarks.Count}");
-            Bookmark targetBm = null;
+            Bookmark? targetBm = null;
 
             List<Bookmark> allBms = new();
             foreach (Bookmark b in vm.AllBookmarks){
@@ -123,11 +123,18 @@ public partial class MainWindow : Window
 
             var targetCounter = allBms.Count;
             var counter = 0;
+            Bookmark parent = null;
             for (int x = 0;x < allBms.Count; x++){
+               // parent is item before counter is incremented
+               parent = allBms[x];
                counter++;
                Console.WriteLine($"b.Title : {allBms[x].Title}");
                if (allBms[x].Title == targetFolderTitle){
+                  if (isGetParent){
+                     return parent;
+                  }
                   targetBm = allBms[x];
+                  Console.WriteLine($"parent.Title: {parent.Title}");
                   return targetBm;
                }
                foreach (Bookmark i in allBms[x].Children){ allBms.Add(i);}
@@ -156,15 +163,19 @@ public partial class MainWindow : Window
              {
                 // find the foldername that the user wants to move
                 // this link to
-                Bookmark targetBm = await FindTargetBookmark(msg.FolderName);
+                Bookmark? parentBm = null;
+                Bookmark? targetBm = await FindTargetBookmark(msg.FolderName);
                 if (targetBm == null){
                    // Let user know we couldn't find a folder with the provided Title
                    Console.WriteLine("Couldn't find a matching bookmark folder.");
                    return;
                 }
-                //We've found the targetBm folder so we add it to the Children 
+                //We've found the targetBm folder so we add the 
+                // selected bm to the Children - before deleting 
                 targetBm.Children.Add(bm);
                 // Now we need to delete it from the old location.
+                // 
+                parentBm = await FindTargetBookmark(msg.FolderName);
              }
           }
           else{
