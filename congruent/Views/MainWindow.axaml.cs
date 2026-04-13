@@ -62,6 +62,7 @@ public partial class MainWindow : Window
 
          if (rootTreeViewItem != null)
          {
+            Console.WriteLine($"hashcode  : {(rootItem as Bookmark).GetHashCode()} text : {(rootItem as Bookmark).Title}");
              BookmarkTree.ExpandSubTree(rootTreeViewItem);
          }
        // "📝"
@@ -147,9 +148,18 @@ public partial class MainWindow : Window
             return null;
       }
 
-     async private void DeleteBookmark(){
+      async private void DeleteBookmark_Click(object? sender, RoutedEventArgs e){
+         DeleteBookmark();
+      }
 
-     }
+      async private void DeleteBookmark(){
+
+        
+       if (BookmarkTree.SelectedItem is Bookmark bm && !string.IsNullOrEmpty(bm.Link))
+       {
+       }
+      }
+
       async private void MoveBookmark(object? sender, RoutedEventArgs e){
                   
           if (BookmarkTree.SelectedItem is Bookmark bm && !string.IsNullOrEmpty(bm.Link))
@@ -218,7 +228,7 @@ public partial class MainWindow : Window
        var targetNode = (sender as TreeView)?.SelectedItem as Bookmark;
        if (string.IsNullOrEmpty(targetNode.Link)){
              currentBookmarkFolder = targetNode.Title;
-             Console.WriteLine($" currentBookmarkFolder: {currentBookmarkFolder}");
+             Console.WriteLine($" currentBookmarkFolder: {currentBookmarkFolder} hashcode: {targetNode.GetHashCode()}");
          }
     }
 
