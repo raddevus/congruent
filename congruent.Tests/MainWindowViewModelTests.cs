@@ -37,6 +37,34 @@ public class MainWindowViewModelTests
       }
       Console.WriteLine("Get allos parent...");
       resultBm = await vm.FindTargetBookmark("allos",true);
+      Console.WriteLine($"** Returned ** - {resultBm}");
+      if (resultBm != null){
+         Console.WriteLine($"Title {resultBm.Title} : hashcode : {resultBm.GetHashCode()}");
+      }
+    }
+
+    [Fact]
+    async public Task FindBookmarkTestBigFile(){
+       MainWindowViewModel vm = new();
+       Console.WriteLine("I did it!");
+
+       Bookmark bm = new(){
+           BookmarkPath=AppContext.BaseDirectory,
+           BookmarkFile="7levelsplus.json"
+      };
+
+      Console.WriteLine($"base path => {bm.BookmarkPath}");
+
+      var bmList = await bm.LoadFromFile();
+      foreach (Bookmark b in bmList){
+         vm.AllBookmarks.Add(b);
+      }
+      Console.WriteLine($"Test is ready. Have {vm.AllBookmarks.Count} bookmarks loaded.");
+      var resultBm = await vm.FindTargetBookmark("comicreader", true);
+      if (resultBm != null){
+         Console.WriteLine($"Title {resultBm.Title} : hashcode : {resultBm.GetHashCode()}");
+      }
+      resultBm = await vm.FindTargetBookmark("mojiWriter🤓", true);
       if (resultBm != null){
          Console.WriteLine($"Title {resultBm.Title} : hashcode : {resultBm.GetHashCode()}");
       }
