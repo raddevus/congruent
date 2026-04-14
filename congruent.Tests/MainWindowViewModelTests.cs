@@ -23,6 +23,13 @@ public class MainWindowViewModelTests
          vm.AllBookmarks.Add(b);
       }
       Console.WriteLine($"Test is ready. Have {vm.AllBookmarks.Count} bookmarks loaded.");
-      vm.FindTargetBookmark("Favorites");
+      var resultBm = await vm.FindTargetBookmark("Favorites");
+      if (resultBm != null){
+         Console.WriteLine($"Title {resultBm.Title} : hashcode : {resultBm.GetHashCode()}");
+      }
+      resultBm = await vm.FindTargetBookmark("one-2");
+      if (resultBm != null){
+         Console.WriteLine($"Title {resultBm.Title} : hashcode : {resultBm.GetHashCode()}");
+      }
     }
 }
