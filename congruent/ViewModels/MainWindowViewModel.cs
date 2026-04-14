@@ -59,6 +59,16 @@ public partial class MainWindowViewModel : ViewModelBase
             return null;
       }
 
+   async public Task<bool> DoesBookmarkExist(Bookmark inMark){
+      //if Link is Null or Empty then we have a parent (folder)
+      //otherwise we check to see if a normal bookmark exists
+      var outMark = await FindTargetBookmark(inMark.Title, string.IsNullOrEmpty(inMark.Link));
+      if (outMark == null){
+         return false;
+      }
+      return true;
+   }
+
    async public Task<Bookmark> FindBookmarkParent(){
       return new Bookmark();
    }
