@@ -69,4 +69,31 @@ public class MainWindowViewModelTests
          Console.WriteLine($"Title {resultBm.Title} : hashcode : {resultBm.GetHashCode()}");
       }
     }
+    
+    [Fact]
+    async public Task DoesBookmarkExistTest(){
+       MainWindowViewModel vm = new();
+       Console.WriteLine("I did it!");
+
+       Bookmark bm = new(){
+           BookmarkPath=AppContext.BaseDirectory,
+           BookmarkFile="7levelsplus.json"
+      };
+
+      Console.WriteLine($"base path => {bm.BookmarkPath}");
+
+      var bmList = await bm.LoadFromFile();
+      foreach (Bookmark b in bmList){
+         vm.AllBookmarks.Add(b);
+      }
+      Console.WriteLine($"Test is ready. Have {vm.AllBookmarks.Count} bookmarks loaded.");
+      Bookmark t1bm = new(){
+         Title="garbage",
+         Link="http://garbage.com"
+      };
+      Console.WriteLine($"##### ====> Does it exist: {await vm.DoesBookmarkExist(t1bm)}");
+      t1bm.Link = "http://rpix.local/";
+      t1bm.Title = "http://rpix.local/";
+      Console.WriteLine($"##### ====> Does it exist: {await vm.DoesBookmarkExist(t1bm)}");
+    }
 }
