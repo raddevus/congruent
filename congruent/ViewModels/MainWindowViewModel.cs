@@ -23,6 +23,7 @@ public partial class MainWindowViewModel : ViewModelBase
             Bookmark? targetBm = null;
 
             List<Bookmark> allBms = new();
+            HashSet<Bookmark> allParents = new();
             foreach (Bookmark b in AllBookmarks){
                allBms.Add(b);
             }
@@ -31,15 +32,13 @@ public partial class MainWindowViewModel : ViewModelBase
             var counter = 0;
             Bookmark parent = null;
             for (int x = 0;x < allBms.Count; x++){
-               // parent is item before counter is incremented
-               parent = allBms[x];
                counter++;
                Console.WriteLine($"b.Title : {allBms[x].Title}");
 
                //if (allBms[x].GetHashCode() == hashcode){
                if (allBms[x].Title == currentBookmarkFolder){
                   if (isGetParent){
-                     Console.WriteLine($"Found parent: {parent.GetHashCode()} : {parent.Title}");
+                     Console.WriteLine($"Found parent: {allParents.ToList<Bookmark>()[allParents.Count-1]?.GetHashCode()} : {allParents.ToList<Bookmark>()[allParents.Count-1]?.Title}");
                      Console.WriteLine($"Found child: {allBms[x].GetHashCode()}");
                      return parent;
                   }
@@ -47,6 +46,7 @@ public partial class MainWindowViewModel : ViewModelBase
                   return targetBm;
                }
                foreach (Bookmark i in allBms[x].Children){
+                  allParents.Add(allBms[x]);
                  Console.WriteLine($"Parent title ==> {allBms[x].Title}");
                   allBms.Add(i);}
                if (counter == targetCounter){

@@ -31,5 +31,14 @@ public class MainWindowViewModelTests
       if (resultBm != null){
          Console.WriteLine($"Title {resultBm.Title} : hashcode : {resultBm.GetHashCode()}");
       }
+      resultBm = await vm.FindTargetBookmark("allos");
+      if (resultBm != null){
+         Console.WriteLine($"Title {resultBm.Title} : hashcode : {resultBm.GetHashCode()}");
+      }
+      Console.WriteLine("Get allos parent...");
+      resultBm = await vm.FindTargetBookmark("allos",true);
+      if (resultBm != null){
+         Console.WriteLine($"Title {resultBm.Title} : hashcode : {resultBm.GetHashCode()}");
+      }
     }
 }
