@@ -38,7 +38,8 @@ public partial class MainWindowViewModel : ViewModelBase
                //if (allBms[x].GetHashCode() == hashcode){
                if (allBms[x].Title == currentBookmarkFolder){
                   if (isGetParent){
-                     Console.WriteLine($"Found parent: {allParents.ToList<Bookmark>()[allParents.Count-1]?.GetHashCode()} : {allParents.ToList<Bookmark>()[allParents.Count-1]?.Title}");
+                     parent = allParents.ToList<Bookmark>()[allParents.Count-1];
+                     Console.WriteLine($"Found parent: {parent?.GetHashCode()} : {parent?.Title}");
                      Console.WriteLine($"Found child: {allBms[x].GetHashCode()}");
                      return parent;
                   }
