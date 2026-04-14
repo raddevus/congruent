@@ -23,6 +23,6 @@ public class MainWindowViewModelTests
          vm.AllBookmarks.Add(b);
       }
       Console.WriteLine($"Test is ready. Have {vm.AllBookmarks.Count} bookmarks loaded.");
-
+      vm.FindTargetBookmark("Favorites");
     }
 }

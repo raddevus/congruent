@@ -14,7 +14,9 @@ public partial class MainWindowViewModel : ViewModelBase
 
    async public Task<Bookmark> FindTargetBookmark(
             string currentBookmarkFolder,
-            int hashcode, bool isGetParent = false){
+            //int hashcode,
+            bool isGetParent = false
+            ){
             var bm = AllBookmarks?.ToList<Bookmark>().FirstOrDefault(b => b?.Title == currentBookmarkFolder);
 
             Console.WriteLine($"AllBookmarks.Count: {AllBookmarks.Count}");
@@ -34,7 +36,8 @@ public partial class MainWindowViewModel : ViewModelBase
                counter++;
                Console.WriteLine($"b.Title : {allBms[x].Title}");
 
-               if (allBms[x].GetHashCode() == hashcode){
+               //if (allBms[x].GetHashCode() == hashcode){
+               if (allBms[x].Title == currentBookmarkFolder){
                   if (isGetParent){
                      Console.WriteLine($"Found parent: {parent.GetHashCode()} : {parent.Title}");
                      Console.WriteLine($"Found child: {allBms[x].GetHashCode()}");
