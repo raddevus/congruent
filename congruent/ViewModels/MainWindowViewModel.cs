@@ -17,7 +17,6 @@ public partial class MainWindowViewModel : ViewModelBase
             //int hashcode,
             bool isGetParent = false
             ){
-            var bm = AllBookmarks?.ToList<Bookmark>().FirstOrDefault(b => b?.Title == title);
 
             Console.WriteLine($"AllBookmarks.Count: {AllBookmarks.Count}");
             Bookmark? targetBm = null;
