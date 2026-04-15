@@ -102,7 +102,7 @@ public partial class MainWindow : Window
             Console.WriteLine($"{targetBm}");
             // bmCheck insures that a BM doesn't exist with same title & link
             var bmCheck = await vm.DoesBookmarkExist(targetBm);
-            if (bmCheck){
+            if (!bmCheck){
                Console.WriteLine($"bm : {targetBm}");
                Console.WriteLine($"bm.Title: {targetBm?.Title} folder.title {currentBookmarkFolder}");
                folderBm?.Children.Add(new Bookmark(){

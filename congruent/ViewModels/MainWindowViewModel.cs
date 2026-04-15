@@ -13,11 +13,11 @@ public partial class MainWindowViewModel : ViewModelBase
    public ObservableCollection<Bookmark> AllBookmarks{get;set;} = new();
 
    async public Task<Bookmark> FindTargetBookmark(
-            string currentBookmarkFolder,
+            string title,
             //int hashcode,
             bool isGetParent = false
             ){
-            var bm = AllBookmarks?.ToList<Bookmark>().FirstOrDefault(b => b?.Title == currentBookmarkFolder);
+            var bm = AllBookmarks?.ToList<Bookmark>().FirstOrDefault(b => b?.Title == title);
 
             Console.WriteLine($"AllBookmarks.Count: {AllBookmarks.Count}");
             Bookmark? targetBm = null;
@@ -36,7 +36,7 @@ public partial class MainWindowViewModel : ViewModelBase
                Console.WriteLine($"b.Title : {allBms[x].Title}");
 
                //if (allBms[x].GetHashCode() == hashcode){
-               if (allBms[x].Title == currentBookmarkFolder){
+               if (allBms[x].Title == title){
                   if (isGetParent){
                      if (allParents.Count >0){
                      parent = allParents.ToList<Bookmark>()[allParents.Count-1];
