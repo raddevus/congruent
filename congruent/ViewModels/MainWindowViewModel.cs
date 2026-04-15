@@ -38,9 +38,11 @@ public partial class MainWindowViewModel : ViewModelBase
                //if (allBms[x].GetHashCode() == hashcode){
                if (allBms[x].Title == currentBookmarkFolder){
                   if (isGetParent){
+                     if (allParents.Count >0){
                      parent = allParents.ToList<Bookmark>()[allParents.Count-1];
                      Console.WriteLine($"Found parent: {parent?.GetHashCode()} : {parent?.Title}");
                      Console.WriteLine($"Found child: {allBms[x].GetHashCode()}");
+                     }
                      return parent;
                   }
                   targetBm = allBms[x];
@@ -62,7 +64,7 @@ public partial class MainWindowViewModel : ViewModelBase
    async public Task<bool> DoesBookmarkExist(Bookmark inMark){
       //if Link is Null or Empty then we have a parent (folder)
       //otherwise we check to see if a normal bookmark exists
-      var outMark = await FindTargetBookmark(inMark.Title, string.IsNullOrEmpty(inMark.Link));
+      var outMark = await FindTargetBookmark(inMark.Title, !string.IsNullOrEmpty(inMark.Link));
       if (outMark == null){
          return false;
       }
