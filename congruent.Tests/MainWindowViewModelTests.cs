@@ -91,25 +91,25 @@ public class MainWindowViewModelTests
          Title="garbage",
          Link="http://garbage.com"
       };
-      Console.WriteLine($"##### {t1bm.Title} ====> Does it exist: {await vm.DoesBookmarkExist(t1bm)}");
+      Console.WriteLine($"##### {t1bm.Title ?? "<empty>"} ====> Does it exist: {await vm.DoesBookmarkExist(t1bm)}");
       t1bm.Link = "http://rpix.local/";
       t1bm.Title = "http://rpix.local/";
-      Console.WriteLine($"##### {t1bm.Title} ====> Does it exist: {await vm.DoesBookmarkExist(t1bm)}");
+      Console.WriteLine($"##### {t1bm.Title ?? "<empty>"} ====> Does it exist: {await vm.DoesBookmarkExist(t1bm)}");
       t1bm.Link = string.Empty;
       t1bm.Title = "level6";
-      Console.WriteLine($"##### {t1bm.Title} ====> Does it exist: {await vm.DoesBookmarkExist(t1bm)}");
+      Console.WriteLine($"##### {t1bm.Title ?? "<empty>"} ====> Does it exist: {await vm.DoesBookmarkExist(t1bm)}");
       t1bm.Link = string.Empty;
       t1bm.Title = "Favorites";
-      Console.WriteLine($"##### {t1bm.Title}====> Does it exist: {await vm.DoesBookmarkExist(t1bm)}");
+      Console.WriteLine($"##### {t1bm.Title ?? "<empty>"}====> Does it exist: {await vm.DoesBookmarkExist(t1bm)}");
       t1bm.Link = string.Empty;
       t1bm.Title = "SFConservancy";
-      Console.WriteLine($"##### {t1bm.Title}====> Does it exist: {await vm.DoesBookmarkExist(t1bm)}");
+      Console.WriteLine($"##### {t1bm.Title ?? "<empty>"}====> Does it exist: {await vm.DoesBookmarkExist(t1bm)}");
       t1bm.Link = "sfconservancy.org";
       t1bm.Title = "SFConservancy";
-      Console.WriteLine($"##### {t1bm.Title}====> Does it exist: {await vm.DoesBookmarkExist(t1bm)}");
+      Console.WriteLine($"##### {t1bm.Title ?? "<empty>"}====> Does it exist: {await vm.DoesBookmarkExist(t1bm)}");
       t1bm.Link = "sfconservancy.org";
-      t1bm.Title = "";
-      Console.WriteLine($"##### {t1bm.Title}====> Does it exist: {await vm.DoesBookmarkExist(t1bm)}");
+      t1bm.Title = null;
+      Console.WriteLine($"##### {t1bm.Title ?? "<empty>"}====> Does it exist: {await vm.DoesBookmarkExist(t1bm)}");
     }
     
 
