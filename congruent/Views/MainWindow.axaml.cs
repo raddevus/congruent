@@ -99,6 +99,7 @@ public partial class MainWindow : Window
             Bookmark? targetBm = new();
             targetBm.Link = msg.LinkUrl;
             targetBm.Title = msg.LinkTitle;
+            Console.WriteLine($"{targetBm}");
             // bmCheck insures that a BM doesn't exist with same title & link
             var bmCheck = await vm.DoesBookmarkExist(targetBm);
             if (bmCheck){

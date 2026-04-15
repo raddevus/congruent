@@ -112,5 +112,20 @@ public class MainWindowViewModelTests
       Console.WriteLine($"##### {t1bm.Title ?? "<empty>"}====> Does it exist: {await vm.DoesBookmarkExist(t1bm)}");
     }
     
+    [Fact]
+    async public Task AddOneBookmarkTest(){
+       MainWindowViewModel vm = new();
+       Console.WriteLine("I did it!");
+
+      Bookmark folderBm = new(){Title="Favorites"};
+      vm.AllBookmarks.Add(folderBm);
+      folderBm = await vm.FindTargetBookmark(folderBm.Title);
+      if (folderBm == null){Console.WriteLine("Folder doesn't exist."); return;}
+      Bookmark? targetBm = new();
+      targetBm.Link = "newlibre.com";
+      targetBm.Title = "newlibre";
+      Console.WriteLine($"{targetBm}");
+      Console.WriteLine($"Does {targetBm.Title} exist? : {await vm.DoesBookmarkExist(targetBm)}");
+    }
 
 }
