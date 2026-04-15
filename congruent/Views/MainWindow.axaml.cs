@@ -91,13 +91,20 @@ public partial class MainWindow : Window
           var url = msg.LinkUrl;
             // insuring that values are set to some string
             if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(url)){ return;}
-
-            Bookmark? targetBm = await FindTargetBookmark(currentBookmarkFolder);
-            if (targetBm != null){
-               var vm = (MainWindowViewModel) DataContext;
+            var vm = (MainWindowViewModel)DataContext;
+            // folderBm represents the folder where wee are adding the new link
+            Bookmark folderBm = new(){Title=currentBookmarkFolder};
+            folderBm = await vm.FindTargetBookmark(folderBm.Title);
+            if (folderBm == null){Console.WriteLine("Folder doesn't exist."); return;}
+            Bookmark? targetBm = new();
+            targetBm.Link = msg.LinkUrl;
+            targetBm.Title = msg.LinkTitle;
+            // bmCheck insures that a BM doesn't exist with same title & link
+            var bmCheck = await vm.DoesBookmarkExist(targetBm);
+            if (bmCheck){
                Console.WriteLine($"bm : {targetBm}");
                Console.WriteLine($"bm.Title: {targetBm?.Title} folder.title {currentBookmarkFolder}");
-               targetBm?.Children.Add(new Bookmark(){
+               folderBm?.Children.Add(new Bookmark(){
                 Title= title, 
                 Link = url,
                 IconSource = "📝",
@@ -105,7 +112,10 @@ public partial class MainWindow : Window
 
                //Added a new bookmark so we save to Bookmarks file
                targetBm.Save(vm.AllBookmarks);
+               return;
             }
+            Console.WriteLine($"A bookmark with that link already exists.");
+
           }
       }
 
