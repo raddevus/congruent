@@ -101,5 +101,16 @@ public class MainWindowViewModelTests
       t1bm.Link = string.Empty;
       t1bm.Title = "Favorites";
       Console.WriteLine($"##### {t1bm.Title}====> Does it exist: {await vm.DoesBookmarkExist(t1bm)}");
+      t1bm.Link = string.Empty;
+      t1bm.Title = "SFConservancy";
+      Console.WriteLine($"##### {t1bm.Title}====> Does it exist: {await vm.DoesBookmarkExist(t1bm)}");
+      t1bm.Link = "sfconservancy.org";
+      t1bm.Title = "SFConservancy";
+      Console.WriteLine($"##### {t1bm.Title}====> Does it exist: {await vm.DoesBookmarkExist(t1bm)}");
+      t1bm.Link = "sfconservancy.org";
+      t1bm.Title = "";
+      Console.WriteLine($"##### {t1bm.Title}====> Does it exist: {await vm.DoesBookmarkExist(t1bm)}");
     }
+    
+
 }
