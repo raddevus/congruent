@@ -168,6 +168,15 @@ public partial class MainWindow : Window
         
        if (BookmarkTree.SelectedItem is Bookmark bm && !string.IsNullOrEmpty(bm.Link))
        {
+          var vm = (MainWindowViewModel) DataContext;
+          var targetBm = await vm.FindTargetBookmarkByLink(bm.Link);
+          Console.WriteLine($"**DEL** {targetBm.Link}");
+          var parent = await vm.FindTargetBookmark(bm.Title, true);
+          if (parent != null){
+             Console.WriteLine($"**DEL** parent.Title: {parent.Title}");
+             parent.Children.Remove(targetBm);
+          }
+          Console.WriteLine("Successfully deleted.");
        }
       }
 
