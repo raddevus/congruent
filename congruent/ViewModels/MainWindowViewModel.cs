@@ -37,10 +37,10 @@ public partial class MainWindowViewModel : ViewModelBase
                //if (allBms[x].GetHashCode() == hashcode){
                if (allBms[x].Title == title){
                   if (isGetParent){
-                     if (allParents.Count >0){
-                     parent = allParents.ToList<Bookmark>()[allParents.Count-1];
+                     if (allParents?.Count >0){
+                     parent = allParents?.ToList<Bookmark>()[allParents.Count-1];
                      Console.WriteLine($"Found parent: {parent?.GetHashCode()} : {parent?.Title}");
-                     Console.WriteLine($"Found child: {allBms[x].GetHashCode()}");
+                     Console.WriteLine($"Found child: {allBms[x]?.GetHashCode()}");
                      }
                      return parent;
                   }

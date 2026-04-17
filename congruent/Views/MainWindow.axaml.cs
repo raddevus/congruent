@@ -174,7 +174,10 @@ public partial class MainWindow : Window
           var parent = await vm.FindTargetBookmark(bm.Title, true);
           if (parent != null){
              Console.WriteLine($"**DEL** parent.Title: {parent.Title}");
-             parent.Children.Remove(targetBm);
+             Console.WriteLine($"index : {parent.Children.Count}");
+                  // .FirstOrDefault(b => b.GetHashCode() == bm.GetHashCode())}");
+             var result = parent.Children.Remove(targetBm);
+             Console.WriteLine($"delete result: {result}");
           }
           Console.WriteLine("Successfully deleted.");
        }
@@ -246,9 +249,9 @@ public partial class MainWindow : Window
       }
     private async void TviClick(object? sender, SelectionChangedEventArgs e){
        var targetNode = (sender as TreeView)?.SelectedItem as Bookmark;
-       if (string.IsNullOrEmpty(targetNode.Link)){
-             currentBookmarkFolder = targetNode.Title;
-             Console.WriteLine($" currentBookmarkFolder: {currentBookmarkFolder} hashcode: {targetNode.GetHashCode()}");
+       if (string.IsNullOrEmpty(targetNode?.Link)){
+             currentBookmarkFolder = targetNode?.Title;
+             Console.WriteLine($" currentBookmarkFolder: {currentBookmarkFolder} hashcode: {targetNode?.GetHashCode()}");
          }
     }
 
