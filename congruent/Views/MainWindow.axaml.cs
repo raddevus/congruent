@@ -209,7 +209,8 @@ public partial class MainWindow : Window
                 // 
                 //parentBm = await FindTargetBookmark(msg.FolderName);
                 Console.WriteLine("Just remove the original bm - maybe this works!");
-                vm.AllBookmarks.Remove(bm);
+//                vm.AllBookmarks.Remove(bm);
+                 DeleteBookmark();
              }
           }
           else{
