@@ -6,6 +6,10 @@ Look at that bookmark hierarchy.  Create folders to keep your bookmarks organize
 The following snapshot is Congruent running on Linux.
 <img width="1410" height="781" alt="image" src="https://github.com/user-attachments/assets/f5b4f868-0ae0-4216-b426-04cf71c69751" />
 
+## Running On Windows In Light Mode
+<img width="1220" height="664" alt="image" src="https://github.com/user-attachments/assets/3fdbb493-1414-454d-9845-f6747ea02d9f" />
+
+
 
 ### Backlog
 - [ ] Add links to the quicklinks control
