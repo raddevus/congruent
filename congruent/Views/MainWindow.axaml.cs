@@ -401,12 +401,18 @@ public partial class MainWindow : Window
             Content = url
          };
       }
-
-
        BrowserTabs.Items.Add(tab);
        BrowserTabs.SelectedItem = tab;
    }
-  
+
+   private string CreateTabText(string targetText){
+      targetText = targetText.Reverse().ToString();
+      var startIdx = targetText.IndexOf(".");
+      targetText = targetText.Substring(startIdx, targetText.Length-1);
+      Console.WriteLine($"targetText: {targetText}");
+      return targetText;
+   }
+
    private void OnTabSelectionChanged(object? sender, SelectionChangedEventArgs e)
    {
        if (BrowserTabs?.SelectedItem is TabItem tab)
