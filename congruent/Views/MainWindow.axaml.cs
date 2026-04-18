@@ -8,6 +8,7 @@ using Avalonia.Interactivity;  // Adds items necessary for event handlers
 using System.Threading.Tasks;
 using congruent.ViewModels;
 using congruent.Models;
+using congruent.Helpers;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
@@ -391,13 +392,13 @@ public partial class MainWindow : Window
           currentWebView = webView;
           tab = new TabItem
           {
-              Header = url,
+              Header = url.CreateTabText(),
               Content = webView
           };
       }
       else{
          tab = new TabItem{
-            Header = NavPathTB.Text,
+            Header = NavPathTB.Text.CreateTabText(),
             Content = url
          };
       }
