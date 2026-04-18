@@ -2,7 +2,8 @@
 2026-03-23 - Congruent got tabbed browsing today. Each time you open a new URL you'll get a new tab.<br>
 Yes, soon the tabs will get better styles &amp; better tab text.<br>
 
-Look at that bookmark hierarchy.  Create folders to keep your bookmarks organized.
+Look at that bookmark hierarchy.  Create folders to keep your bookmarks organized.<br>
+The following snapshot is Congruent running on Linux.
 <img width="1410" height="781" alt="image" src="https://github.com/user-attachments/assets/f5b4f868-0ae0-4216-b426-04cf71c69751" />
 
 
