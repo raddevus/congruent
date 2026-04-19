@@ -6,3 +6,4 @@
 - [ ] allow show source
 - [ ] as a user I want to create a new tab without typing a URL
 - [ ] as a user I want a way. to save common links i use (bookmarks)
+- [ ] As a user I want to be able to delete a folder
