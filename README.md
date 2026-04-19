@@ -10,15 +10,6 @@ The following snapshot is Congruent running on Linux.
 <img width="1220" height="664" alt="image" src="https://github.com/user-attachments/assets/3fdbb493-1414-454d-9845-f6747ea02d9f" />
 
 
-
-### Backlog
-- [ ] Add links to the quicklinks control
-- [ ] Clean up tab title so it doesn't show entire link text (remove http etc)
-- [ ] fix links that open in a new window - discover how to open them in current window
-- [ ] allow show source
-- [ ] as a user I want to create a new tab without typing a URL
-- [ ] as a user I want a way. to save common links i use (bookmarks)
-
 #### As I Began Building
 ~~Discovered that the webview required a commercial license in Avalonia 11, but is soon coming.~~
 
