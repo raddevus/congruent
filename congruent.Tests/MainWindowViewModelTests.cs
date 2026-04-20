@@ -128,4 +128,24 @@ public class MainWindowViewModelTests
       Console.WriteLine($"Does {targetBm.Title} exist? : {await vm.DoesBookmarkExist(targetBm)}");
     }
 
+    [Fact]
+    async public Task FindFolderTest(){
+       MainWindowViewModel vm = new();
+       Console.WriteLine("I did it!");
+
+       Bookmark bm = new(){
+           BookmarkPath=AppContext.BaseDirectory,
+           BookmarkFile="7levelsplus.json"
+      };
+
+      Console.WriteLine($"base path => {bm.BookmarkPath}");
+
+      var bmList = await bm.LoadFromFile();
+      foreach (Bookmark b in bmList){
+         vm.AllBookmarks.Add(b);
+      }
+      Console.WriteLine($"Test is ready. Have {vm.AllBookmarks.Count} bookmarks loaded.");
+      var resultFolder = await vm.FindTargetBookmark("Favorites", false);
+      Console.WriteLine(resultFolder);
+    }
 }
