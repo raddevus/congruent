@@ -190,11 +190,11 @@ public partial class MainWindow : Window
 
       async private void DeleteFolder(){
          var vm = (MainWindowViewModel) DataContext;
-         var resultFolder = await vm.FindTargetBookmark("level3", false);
-         Console.WriteLine($"found target folder: {resultFolder}");
-         var parentFolder = await vm.FindTargetBookmark("level3", true);
-         Console.WriteLine($"found parent folder: {parentFolder}");
-         var isSuccess = parentFolder.Children.Remove(resultFolder);
+         var target = await vm.FindTargetBookmark(currentBookmarkFolder);
+         Console.WriteLine($"found target folder: {target}");
+         var parentFolder = await vm.FindTargetBookmark(target.Title, true);
+         Console.WriteLine($"found parent folder: {parentFolder} : child-count {parentFolder.Children.Count}");
+         var isSuccess = parentFolder.Children.Remove(target);
          Console.WriteLine($"We deleted the target folder: {isSuccess}");
       }
 
