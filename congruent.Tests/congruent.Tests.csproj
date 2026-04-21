@@ -27,6 +27,9 @@
  <ItemGroup>
   <None Update="7levelsplus.json" CopyToOutputDirectory="Always" />
  </ItemGroup>
+ <ItemGroup>
+  <None Update="bmForDeleteTests.json" CopyToOutputDirectory="Always" />
+ </ItemGroup>
 
 
   <ItemGroup>
