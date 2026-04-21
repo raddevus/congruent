@@ -30,6 +30,7 @@ public partial class MainWindowViewModel : ViewModelBase
             var targetCounter = allBms.Count;
             var counter = 0;
             Bookmark parent = null;
+            int parentCounter = 0;
             for (int x = 0;x < allBms.Count; x++){
                counter++;
                Console.WriteLine($"b.Title : {allBms[x].Title}");
@@ -38,7 +39,8 @@ public partial class MainWindowViewModel : ViewModelBase
                if (allBms[x].Title == title){
                   if (isGetParent){
                      if (allParents?.Count >0){
-                     parent = allParents?.ToList<Bookmark>()[allParents.Count-1];
+                        Console.WriteLine($"**** {parentCounter} ******");
+                     parent = allParents?.ToList<Bookmark>()[parentCounter-1];
                      Console.WriteLine($"Found parent: {parent?.GetHashCode()} : {parent?.Title}");
                      Console.WriteLine($"Found child: {allBms[x]?.GetHashCode()}");
                      }
@@ -52,6 +54,7 @@ public partial class MainWindowViewModel : ViewModelBase
                  Console.WriteLine($"Parent title ==> {allBms[x].Title}");
                   allBms.Add(i);}
                if (counter == targetCounter){
+                  parentCounter++;
                   targetCounter = allBms[x].Children.Count;
                   counter = 0;
                }
