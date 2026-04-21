@@ -184,6 +184,20 @@ public partial class MainWindow : Window
        }
       }
 
+      async private void DeleteFolder_Click(object? sender, RoutedEventArgs e){
+         DeleteFolder();
+      }
+
+      async private void DeleteFolder(){
+         var vm = (MainWindowViewModel) DataContext;
+         var resultFolder = await vm.FindTargetBookmark("level3", false);
+         Console.WriteLine($"found target folder: {resultFolder}");
+         var parentFolder = await vm.FindTargetBookmark("level3", true);
+         Console.WriteLine($"found parent folder: {parentFolder}");
+         var isSuccess = parentFolder.Children.Remove(resultFolder);
+         Console.WriteLine($"We deleted the target folder: {isSuccess}");
+      }
+
       async private void MoveBookmark(object? sender, RoutedEventArgs e){
                   
           if (BookmarkTree.SelectedItem is Bookmark bm && !string.IsNullOrEmpty(bm.Link))

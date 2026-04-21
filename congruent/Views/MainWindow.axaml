@@ -74,6 +74,8 @@
             <MenuItem Header="Create New Folder" Click="NewFolder_Click"/>
             <Separator/>
             <MenuItem Header="Delete Bookmark" Click="DeleteBookmark_Click"/>       
+            <Separator/>
+            <MenuItem Header="Delete Folder" Click="DeleteFolder_Click"/>       
          </ContextMenu>
         </TreeView.ContextMenu>
        <TreeView.ItemTemplate>
