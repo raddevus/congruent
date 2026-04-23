@@ -30,6 +30,9 @@
  <ItemGroup>
   <None Update="bmForDeleteTests.json" CopyToOutputDirectory="Always" />
  </ItemGroup>
+ <ItemGroup>
+  <None Update="simpleDelTests.json" CopyToOutputDirectory="Always" />
+ </ItemGroup>
 
 
   <ItemGroup>
