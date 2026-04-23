@@ -197,9 +197,16 @@ public class MainWindowViewModelTests
       Console.WriteLine($"Test is ready. Have {vm.AllBookmarks.Count} bookmarks loaded.");
       var resultFolder = await vm.FindTargetBookmark("Favorites");
       Console.WriteLine($"found target folder: {resultFolder}");
-/*      var parentFolder = await vm.FindTargetBookmark("LastOne", true);
+      Console.WriteLine("Can we find the parent of third?");
+      var parentFolder = await vm.FindTargetBookmark("third", true);
       Console.WriteLine($"found parent folder: {parentFolder}");
-      var isSuccess = parentFolder.Children.Remove(resultFolder);
-      Console.WriteLine($"We deleted the target folder: {isSuccess}"); */
+/*      var isSuccess = parentFolder.Children.Remove(resultFolder);
+      Console.WriteLine($"We deleted the target folder: {isSuccess}");
+ */     
+      Console.WriteLine("Can we find the parent of thirdlink?");
+      parentFolder = await vm.FindTargetBookmark("thirdlink", true);
+      
+      Console.WriteLine($"===> found parent folder: {parentFolder}");
+
     }
 }
