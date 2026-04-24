@@ -9,3 +9,4 @@
 - [ ] As a user I want to be able to delete a folder
 - [ ] As a user I want the app to remember settings like location of splitter (size of each window)
 - [ ] As a User I want a way to open a boomkark file from any local file location and import the bookmarks
+- [ ] As a user I want to be able to maximize the main webview area and then go back to the splitter view easily.
