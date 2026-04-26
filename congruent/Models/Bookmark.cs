@@ -12,6 +12,7 @@ namespace congruent.Models;
 public class Bookmark : INotifyPropertyChanged {
    public string Title {get;set;}
    public string Link {get;set;}
+   public int ParentHashId {get;set;}
 
    [JsonIgnore]
    public string BookmarkPath{get; set;} = Path.GetDirectoryName(Environment.ProcessPath);
