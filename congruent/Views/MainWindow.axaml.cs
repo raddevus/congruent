@@ -121,45 +121,6 @@ public partial class MainWindow : Window
           }
       }
 
-      async private Task<Bookmark?> FindTargetBookmark(
-            string targetFolderTitle, bool isGetParent = false){
-            var vm = (MainWindowViewModel)DataContext;
-            var bm = vm.AllBookmarks?.FirstOrDefault(b => b?.Title == currentBookmarkFolder);
-
-            Console.WriteLine($"vm.AllBookmarks.Count: {vm.AllBookmarks.Count}");
-            Bookmark? targetBm = null;
-
-            List<Bookmark> allBms = new();
-            foreach (Bookmark b in vm.AllBookmarks){
-               allBms.Add(b);
-            }
-
-            var targetCounter = allBms.Count;
-            var counter = 0;
-            Bookmark parent = null;
-            for (int x = 0;x < allBms.Count; x++){
-               // parent is item before counter is incremented
-               parent = allBms[x];
-               counter++;
-               Console.WriteLine($"b.Title : {allBms[x].Title}");
-               if (allBms[x].Title == targetFolderTitle){
-                  if (isGetParent){
-                     return parent;
-                  }
-                  targetBm = allBms[x];
-                  Console.WriteLine($"parent.Title: {parent.Title}");
-                  return targetBm;
-               }
-               foreach (Bookmark i in allBms[x].Children){ allBms.Add(i);}
-               if (counter == targetCounter){
-                  targetCounter = allBms[x].Children.Count;
-                  counter = 0;
-               }
-            }
-
-            return null;
-      }
-
       async private void DeleteBookmark_Click(object? sender, RoutedEventArgs e){
          DeleteBookmark();
       }
@@ -208,10 +169,11 @@ public partial class MainWindow : Window
              bool dialogResult = await msg.ShowDialog<bool>(this);
              if (dialogResult)
              {
+
                 // find the foldername that the user wants to move
                 // this link to
                 Bookmark? parentBm = null;
-                Bookmark? targetBm = await FindTargetBookmark(msg.FolderName);
+                Bookmark? targetBm = await vm.FindTargetBookmark(msg.FolderName);
                 if (targetBm == null){
                    // Let user know we couldn't find a folder with the provided Title
                    Console.WriteLine("Couldn't find a matching bookmark folder.");
