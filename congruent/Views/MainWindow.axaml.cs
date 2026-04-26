@@ -108,6 +108,7 @@ public partial class MainWindow : Window
                Console.WriteLine($"bm.Title: {targetBm?.Title} folder.title {currentBookmarkFolder}");
                folderBm?.Children.Add(new Bookmark(){
                 Title= title, 
+                ParentHashId = folderBm.GetHashCode(),
                 Link = url,
                 IconSource = "📝",
                 });
@@ -181,6 +182,8 @@ public partial class MainWindow : Window
                 }
                 //We've found the targetBm folder so we add the 
                 // selected bm to the Children - before deleting 
+                // --- but first add the Parent's hashcode id to child
+                bm.ParentHashId = targetBm.GetHashCode();
                 targetBm.Children.Add(bm);
                 // Now we need to delete it from the old location.
                 // 
@@ -209,7 +212,8 @@ public partial class MainWindow : Window
                 Console.WriteLine("dialog result is good");
                 var folderName = msg.FolderName;
                 bm.Children.Add(new Bookmark(){
-                Title = folderName, 
+                Title = folderName,
+                ParentHashId = bm.GetHashCode(),
                 IconSource = "📂",
                 });
              }
@@ -274,7 +278,9 @@ public partial class MainWindow : Window
        var vm = (MainWindowViewModel) DataContext;
        var bm = vm.AllBookmarks.First(a => a.Title == "Favorites");
        bm?.Children.Add(new Bookmark()
-                   {Title=NavPathTB.Text,Link=NavPathTB.Text,IconSource="📝"});
+                   {Title=NavPathTB.Text,
+                   ParentHashId = bm.GetHashCode(),
+                   Link=NavPathTB.Text,IconSource="📝"});
 
    }
 
