@@ -113,8 +113,9 @@ public partial class MainWindowViewModel : ViewModelBase
                   return targetBm;
                }
                foreach (Bookmark i in allBms[x].Children){
+                  i.ParentHashId = allBms[x].GetHashCode();
                   allParents.Add(allBms[x]);
-                 Console.WriteLine($"Parent title ==> {allBms[x].Title}");
+                 Console.WriteLine($"Parent title ==> {allBms[x].Title} : {i.ParentHashId}");
                   allBms.Add(i);
                }
                if (counter == targetCounter){
