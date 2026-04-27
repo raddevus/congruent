@@ -180,6 +180,9 @@ public partial class MainWindow : Window
                    Console.WriteLine("Couldn't find a matching bookmark folder.");
                    return;
                 }
+                // You have to delete the orig bookmark first -- before you move it.
+                DeleteBookmark();
+
                 //We've found the targetBm folder so we add the 
                 // selected bm to the Children - before deleting 
                 // --- but first add the Parent's hashcode id to child
@@ -189,8 +192,6 @@ public partial class MainWindow : Window
                 // 
                 //parentBm = await FindTargetBookmark(msg.FolderName);
                 Console.WriteLine("Just remove the original bm - maybe this works!");
-//                vm.AllBookmarks.Remove(bm);
-                 DeleteBookmark();
              }
           }
           else{
