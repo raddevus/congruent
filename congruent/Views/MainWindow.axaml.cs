@@ -134,8 +134,7 @@ public partial class MainWindow : Window
           var vm = (MainWindowViewModel) DataContext;
           var targetBm = await vm.FindTargetBookmarkByHashCode(bm.GetHashCode());
           Console.WriteLine($"**DEL** {targetBm.Link} : {targetBm.ParentHashId}");
-         return;
-          var parent = await vm.FindTargetBookmarkByHashCode(targetBm.GetHashCode(), bm.ParentHashId);
+          var parent = await vm.FindTargetBookmarkByHashCode(targetBm.ParentHashId);
           if (parent != null){
              Console.WriteLine($"**DEL** parent.Title: {parent.Title}");
              Console.WriteLine($"index : {parent.Children.Count}");
