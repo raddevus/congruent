@@ -20,6 +20,7 @@ public partial class MainWindow : Window
    private TabItem currentTab = null;
    private NativeWebView currentWebView = null;
    private string currentBookmarkFolder = null;
+   private int currentHashCode = 0;
 
     public MainWindow()
     {
@@ -152,12 +153,16 @@ public partial class MainWindow : Window
 
       async private void DeleteFolder(){
          var vm = (MainWindowViewModel) DataContext;
-         var target = await vm.FindTargetBookmark(currentBookmarkFolder);
-         Console.WriteLine($"found target folder: {target}");
-         var parentFolder = await vm.FindTargetBookmark(target.Title, true);
-         Console.WriteLine($"found parent folder: {parentFolder} : child-count {parentFolder.Children.Count}");
-         var isSuccess = parentFolder.Children.Remove(target);
-         Console.WriteLine($"We deleted the target folder: {isSuccess}");
+
+         if (BookmarkTree.SelectedItem is Bookmark bm && string.IsNullOrEmpty(bm.Link))
+         {
+            var target = await vm.FindTargetBookmarkByHashCode(currentHashCode);
+            Console.WriteLine($"found target folder: {target}");
+            var parentFolder = await vm.FindTargetBookmarkByHashCode(target.ParentHashId);
+            Console.WriteLine($"found parent folder: {parentFolder} : child-count {parentFolder.Children.Count}");
+            var isSuccess = parentFolder.Children.Remove(target);
+            Console.WriteLine($"We deleted the target folder: {isSuccess}");
+         }
       }
 
       async private void MoveBookmark(object? sender, RoutedEventArgs e){
@@ -234,6 +239,7 @@ public partial class MainWindow : Window
        var targetNode = (sender as TreeView)?.SelectedItem as Bookmark;
        if (string.IsNullOrEmpty(targetNode?.Link)){
              currentBookmarkFolder = targetNode?.Title;
+             currentHashCode = targetNode?.GetHashCode() ?? 0;
              Console.WriteLine($" currentBookmarkFolder: {currentBookmarkFolder} hashcode: {targetNode?.GetHashCode()}");
          }
     }
