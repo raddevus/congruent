@@ -95,7 +95,7 @@ public partial class MainWindowViewModel : ViewModelBase
             Bookmark parent = null;
             for (int x = 0;x < allBms.Count; x++){
                counter++;
-               Console.WriteLine($"b.Title : {allBms[x].Title}");
+               Console.WriteLine($"b.Title : {allBms[x].Title} : {allBms[x].GetHashCode()}");
 
                //if (allBms[x].GetHashCode() == hashcode){
                if (allBms[x].GetHashCode() == hashcode){

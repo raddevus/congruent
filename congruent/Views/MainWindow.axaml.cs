@@ -94,8 +94,8 @@ public partial class MainWindow : Window
             if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(url)){ return;}
             var vm = (MainWindowViewModel)DataContext;
             // folderBm represents the folder where wee are adding the new link
-            Bookmark folderBm = new(){Title=currentBookmarkFolder};
-            folderBm = await vm.FindTargetBookmark(folderBm.Title);
+            //Bookmark folderBm = new(){Title=currentBookmarkFolder};
+            var folderBm = await vm.FindTargetBookmark(currentBookmarkFolder);
             if (folderBm == null){Console.WriteLine("Folder doesn't exist."); return;}
             Bookmark? targetBm = new();
             targetBm.Link = msg.LinkUrl;
@@ -132,9 +132,10 @@ public partial class MainWindow : Window
        if (BookmarkTree.SelectedItem is Bookmark bm && !string.IsNullOrEmpty(bm.Link))
        {
           var vm = (MainWindowViewModel) DataContext;
-          var targetBm = await vm.FindTargetBookmarkByLink(bm.Link);
-          Console.WriteLine($"**DEL** {targetBm.Link}");
-          var parent = await vm.FindTargetBookmark(bm.Title, true);
+          var targetBm = await vm.FindTargetBookmarkByHashCode(bm.GetHashCode());
+          Console.WriteLine($"**DEL** {targetBm.Link} : {targetBm.ParentHashId}");
+         return;
+          var parent = await vm.FindTargetBookmarkByHashCode(targetBm.GetHashCode(), bm.ParentHashId);
           if (parent != null){
              Console.WriteLine($"**DEL** parent.Title: {parent.Title}");
              Console.WriteLine($"index : {parent.Children.Count}");
