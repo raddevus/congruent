@@ -119,6 +119,7 @@
             <TabItem Header="DuckDuckGo">
                 <NativeWebView Name="MainWebView" 
                 Loaded="OnWebViewLoaded"
+                EnvironmentRequested="EnvironmentReqHandler"
                 MinWidth="500" MinHeight="500"
                 HorizontalAlignment="Stretch"
                VerticalAlignment="Stretch"

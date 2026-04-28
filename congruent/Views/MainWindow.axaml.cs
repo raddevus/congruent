@@ -81,8 +81,18 @@ public partial class MainWindow : Window
              });
    }
     
+     private void EnvironmentReqHandler(object? sender, WebViewEnvironmentRequestedEventArgs e){
+        e.EnableDevTools = true;
+       var dataPath = System.IO.Path.Combine(AppContext.BaseDirectory, "webview-data");
+       Console.WriteLine($" #*#*#*#* dataPath: {dataPath} #*#*#*");
+//       Console.WriteLine($" #*#*#*#* DIRECTORY: {e.DataDirectory} #*#*#*");
+//       e.DataDirectory = dataPath;
+
+   }
+
     async protected override void OnOpened(EventArgs e){
        base.OnOpened(e);
+
        MainWebView.Focus();
        MainWebView.Source = new System.Uri("https://duckduckgo.com");
        currentWebView = MainWebView;
@@ -514,6 +524,7 @@ public partial class MainWindow : Window
   //     {
          Console.WriteLine("##### OnWEbViewLoaded #############");
            var web = (sender as NativeWebView);
+
            
                MainWebView.InvalidateMeasure();
                MainWebView.InvalidateArrange();
