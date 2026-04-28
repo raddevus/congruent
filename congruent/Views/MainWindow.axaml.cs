@@ -61,6 +61,13 @@ public partial class MainWindow : Window
            "2mdn.net",
            "trustedstack.com",
            "brandmetrics.com",
+           "adnxs.com",
+           "adsdkprod.azureedge.net",
+           "mem.gfx.ms",
+           "match.sharethrough.com",
+           "ups.analytics.yahoo.com",
+           "visitor.omnitagjs.com",
+           "criteo.com",
 
        };
 
