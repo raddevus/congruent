@@ -451,6 +451,8 @@ public partial class MainWindow : Window
           };
 
           currentWebView = webView;
+          currentWebView.EnvironmentRequested += EnvironmentReqHandler;
+
           tab = new TabItem
           {
               Header = url.CreateTabText(),
