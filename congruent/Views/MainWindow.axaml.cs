@@ -31,12 +31,67 @@ public partial class MainWindow : Window
         };
 
     }
+
+    private bool IsAdUrl(string? url)
+   {
+       if (string.IsNullOrEmpty(url)) return false;
+
+       var adDomains = new[]
+       {
+           "doubleclick.net",
+           "googlesyndication.com",
+           "adservice.google.com",
+           "amazon-adsystem.com",
+           "ads.twitter.com",
+           "doubleclick.net",
+           "c1.adform.net",
+           "match.adsrvr.org",
+           "pubmatic.com",
+           "cs.admanmedia.com",
+           "yandex.ru",
+           "adtrafficquality.google",
+           "adform.net",
+           "360yield.com",
+           "dotomi.com",
+           "ipredictive.com",
+           "vistarsagency.com",
+           "de.tynt.com",
+           "ssp.disqus.com",
+           "hbx.media.net",
+           "2mdn.net",
+           "trustedstack.com",
+           "brandmetrics.com",
+
+       };
+
+       return adDomains.Any(domain => {
+//             Console.WriteLine($"$$$$$$ DOMAIN $$$$$ {domain}");
+             var retVal = url.Contains(domain);
+             if (retVal){
+                Console.WriteLine($" ****FOUND**** ${url}");
+               }
+               return retVal;
+             });
+   }
     
     async protected override void OnOpened(EventArgs e){
        base.OnOpened(e);
        MainWebView.Focus();
        MainWebView.Source = new System.Uri("https://duckduckgo.com");
        currentWebView = MainWebView;
+
+         // #### RAD 2026-04-28 - NavigationSTarted can be removed later
+         // this is only run on the duckduckgo (HOME) page.
+         currentWebView.NavigationStarted += (sender, e) =>
+         {
+             Console.WriteLine($" ## STARTED ## {e.Request?.ToString()}");
+            if (IsAdUrl(e.Request?.ToString()))
+            {
+                   Console.WriteLine($"BLOCKED *** {e.Request?.ToString()}");
+             e.Cancel = true;
+            }
+         }; 
+
        // following three lines force the initial render of webview
        wnd.Width += 2;
        System.Threading.Thread.Sleep(100);
@@ -418,6 +473,17 @@ public partial class MainWindow : Window
                System.Threading.Thread.Sleep(10);
                wnd.Width -= 2;
                currentWebView = web;
+               currentWebView.NavigationStarted += (sender, e) =>
+               {
+                  Console.WriteLine($" ## CALLING ISADURL ## {e.Request?.ToString()}");
+                  if (IsAdUrl(e.Request?.ToString()))
+                  {
+                   Console.WriteLine($"BLOCKED *** {e.Request?.ToString()}");
+                   e.Cancel = true;
+                  currentWebView?.Stop();
+                  }
+               }; 
+
 
            }
        }
