@@ -1,9 +1,11 @@
 using System;
+using System.IO;
 using System.Linq;
 using Avalonia;
 using Avalonia.Input;
 using Avalonia.Input.Platform;
 using Avalonia.Controls;
+using Avalonia.Platform;
 using Avalonia.Interactivity;  // Adds items necessary for event handlers
 using System.Threading.Tasks;
 using congruent.ViewModels;
@@ -94,10 +96,32 @@ public partial class MainWindow : Window
     
      private void EnvironmentReqHandler(object? sender, WebViewEnvironmentRequestedEventArgs e){
         e.EnableDevTools = true;
-       var dataPath = System.IO.Path.Combine(AppContext.BaseDirectory, "webview-data");
+      var appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+    var dataPath = Path.Combine(appData, "congruent", "WebViewData");
+    Directory.CreateDirectory(dataPath);
+
+    switch (e)
+    {
+        // Windows (WebView2/Edge)
+        case WindowsWebView2EnvironmentRequestedEventArgs win:
+            win.UserDataFolder = dataPath;
+            win.ProfileName = "CongruentBrowser";
+            break;
+
+        // macOS / iOS (WKWebView)
+        case AppleWKWebViewEnvironmentRequestedEventArgs mac:
+            // NonPersistentDataStore = false (default) means it IS persistent
+            // mac.NonPersistentDataStore = false; // this is already the default
+            mac.DataStoreIdentifier = "CongruentProfile"; // stable identifier
+            break;
+
+        // Linux WPE WebKit
+        case LinuxWpeWebViewEnvironmentRequestedEventArgs wpe:
+            wpe.DataDirectory  = Path.Combine(dataPath, "data");
+            wpe.CacheDirectory = Path.Combine(dataPath, "cache");
+            break;
+    }
        Console.WriteLine($" #*#*#*#* dataPath: {dataPath} #*#*#*");
-//       Console.WriteLine($" #*#*#*#* DIRECTORY: {e.DataDirectory} #*#*#*");
-//       e.DataDirectory = dataPath;
 
    }
 
