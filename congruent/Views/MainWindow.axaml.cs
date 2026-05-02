@@ -112,7 +112,8 @@ public partial class MainWindow : Window
         case AppleWKWebViewEnvironmentRequestedEventArgs mac:
             // NonPersistentDataStore = false (default) means it IS persistent
             // mac.NonPersistentDataStore = false; // this is already the default
-            mac.DataStoreIdentifier = "CongruentProfile"; // stable identifier
+            // RAD 2026-05-02 - had to comment following line of code - it crashed the app
+//            mac.DataStoreIdentifier = "CongruentProfile"; // stable identifier
             break;
 
         // Linux WPE WebKit
