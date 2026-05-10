@@ -126,7 +126,7 @@ public partial class MainWindowViewModel : ViewModelBase
             return null;
       }
    
-      async public Task<Bookmark> FindTargetBookmarkByLink(
+      async private Task<Bookmark> FindTargetBookmarkByLink(
             string link,
             //int hashcode,
             bool isGetParent = false
