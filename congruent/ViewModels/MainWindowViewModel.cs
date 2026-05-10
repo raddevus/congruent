@@ -74,10 +74,6 @@ public partial class MainWindowViewModel : ViewModelBase
       return true;
    }
 
-   async public Task<Bookmark> FindBookmarkParent(){
-      return new Bookmark();
-   }
-
    async public Task<Bookmark> FindTargetBookmarkByHashCode(int hashcode,
             int? phash =null){
 
