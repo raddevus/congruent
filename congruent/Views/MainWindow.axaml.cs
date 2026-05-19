@@ -175,6 +175,17 @@ public partial class MainWindow : Window
             Console.WriteLine($"hashcode  : {(rootItem as Bookmark).GetHashCode()} text : {(rootItem as Bookmark).Title}");
              BookmarkTree.ExpandSubTree(rootTreeViewItem);
          }
+         var itemX = await vm.FindTargetBookmark("TestSites");
+         var targetItemX = BookmarkTree.TreeContainerFromItem(itemX) as TreeViewItem;
+         if (targetItemX != null){
+            BookmarkTree.CollapseSubTree(targetItemX);
+         }
+         itemX = await vm.FindTargetBookmark("reading");
+         targetItemX = BookmarkTree.TreeContainerFromItem(itemX) as TreeViewItem;
+
+         if (targetItemX != null){
+            BookmarkTree.CollapseSubTree(targetItemX);
+         }
        // "📝"
     }
       async private void OpenLink_Click(object? sender, RoutedEventArgs e)
