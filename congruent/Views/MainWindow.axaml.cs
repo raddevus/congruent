@@ -118,9 +118,27 @@ public partial class MainWindow : Window
 
         // Linux WPE WebKit
         case LinuxWpeWebViewEnvironmentRequestedEventArgs wpe:
-            wpe.DataDirectory  = Path.Combine(dataPath, "data");
-            wpe.CacheDirectory = Path.Combine(dataPath, "cache");
+            // This code never seems to fire on my version of Linux (OpenMandriva)
+//            wpe.DataDirectory  = Path.Combine(dataPath, "data");
+//            wpe.CacheDirectory = Path.Combine(dataPath, "cache");
+            Console.WriteLine($"wpe.DataDirectory {wpe.DataDirectory} #### {wpe.CacheDirectory}");
+
             break;
+         case Avalonia.Platform.GtkWebViewEnvironmentRequestedEventArgs gtk:{
+            // This is the code that works on Linux with GTK
+            gtk.BaseDataDirectory = dataPath;
+            gtk.BaseCacheDirectory = Path.Combine(appData, "congruent", "cache");
+            gtk.EphemeralDataManager = false;
+            gtk.SharedProcessModel = true;
+            
+            Console.WriteLine($"EphemeralDataManager: {gtk.EphemeralDataManager} : gtk.BaseDataDirectory ==> {gtk.BaseDataDirectory} ### {gtk.BaseCacheDirectory}  : shared {gtk.SharedProcessModel}");
+            break;
+         }
+         default:
+            {
+               Console.WriteLine($"e: ====> {e}");
+               break;
+            }
     }
        Console.WriteLine($" #*#*#*#* dataPath: {dataPath} #*#*#*");
 
@@ -143,7 +161,14 @@ public partial class MainWindow : Window
                    Console.WriteLine($"BLOCKED *** {e.Request?.ToString()}");
              e.Cancel = true;
             }
-         }; 
+         };
+
+         // The following code never fires -- leaving it for now as I investigate other issues
+/*         currentWebView.EnvironmentRequested += (sender, args) => {
+          if (args is GtkWebViewEnvironmentRequestedEventArgs gtkArgs) {
+             Console.WriteLine("#*$#(&$#$#$#   Wow!   got args!!! ##$#(@#(*$#@");
+          }
+         }; */
 
        // following three lines force the initial render of webview
        wnd.Width += 2;
