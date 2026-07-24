@@ -126,11 +126,11 @@ public partial class MainWindow : Window
             break;
          case Avalonia.Platform.GtkWebViewEnvironmentRequestedEventArgs gtk:{
             // This is the code that works on Linux with GTK
-            gtk.BaseDataDirectory = dataPath;
+/*            gtk.BaseDataDirectory = dataPath;
             gtk.BaseCacheDirectory = Path.Combine(appData, "congruent", "cache");
             gtk.EphemeralDataManager = false;
             gtk.SharedProcessModel = true;
-            
+ */           
             Console.WriteLine($"EphemeralDataManager: {gtk.EphemeralDataManager} : gtk.BaseDataDirectory ==> {gtk.BaseDataDirectory} ### {gtk.BaseCacheDirectory}  : shared {gtk.SharedProcessModel}");
             break;
          }
